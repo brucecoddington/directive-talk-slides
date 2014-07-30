@@ -37,11 +37,8 @@
           <h3>TD Amertrade JS Summit</h3>
           <h4>Angular JS</h4>
         </section>
-        <section class="index-page">
-          <h2>AngularJS</h2>
-        </section>
         <section>
-          <h2>Introduction</h2>
+          <h2>whoami?</h2>
           <ul>
             <li>Bruce Coddington<a href="https://twitter.com/brucecoddington" target="_blank">(@brucecoddington)</a></li>
             <li>bruce.coddington@tdameritrade.com</li>
@@ -52,7 +49,7 @@
           <h2>Objectives</h2>
           <ul>
             <li>Share our experience building a production application using Angular JS</li>
-            <li>High level, firehose introduction to Angular's components</li>
+            <li>High level, firehose introduction to Angular's methodologies</li>
             <li>I love questions, don't be shy..you cannot derail me</li>
           </ul>
         </section>
@@ -180,24 +177,22 @@ angular.module('feature1.1', []);
         </section>
         <section>
           <h3>Link</h3>
-          <p>
-            Combine the directives with a scope and produce a live view. Any changes in the scope model are
-            reflected in the view, and any user interactions with the view are reflected in the scope model.
-          </p>
+          <p>Combine the directives with a scope and produce a live view. </p>
+          <p>Any changes in the scope model are reflected in the view.</p>
+          <p>User interactions with the view are reflected in the scope model.</p>
         </section>
         <section>
           <h2>Scope</h2>
         </section>
         <section>
-          <p>Scope is an object that refers to the application model.  It is an execution context for expressions.</p>
-          <p>Scopes are arranged in hierarchical structure which mimic the DOM structure of the application.</p>
+          <p>Scope is an object that refers to the application model.  </p>
+          <p>Execution context for expressions.</p>
+          <p>Arranged in hierarchical structure which mimic the DOM structure of the application.</p>
         </section>
         <section>
-          <h3>Communicating with Angular from the outside</h3>
-          <ul>
-            <li><strong>$apply</strong> : Gets you from the outside into the Ng world.</li>
-            <li><strong>$parse</strong> : Gets you two-way binding.</li>
-          </ul>
+          <h3>Communicating with the outside world</h3>
+          <p><strong>$apply</strong> : Gets you from the outside into the Ng world.</p>
+          <p><strong>$parse</strong> : Gets you two-way binding.</p>
         </section>
         <section>
           <p>Let's see the HTML compiler in action</p>
@@ -575,13 +570,19 @@ angular.module('app.directives', [])
         <section>
           <p>The compile function </p><br>
           <pre><code data-trim>
-function (tElement, tAttrs, transclude) {
-  return {
-    pre: function preLink (scope, iElement, iAttrs, controller) { ... },
-    post: function postLink (scope, iElement, iAttrs, controller) { ... }
-  }
-}
-
+angular.module('app.directives', [])
+  .directive('myCoolDirective', function() {
+    return {
+      compile : function (tElement, tAttrs, transclude) {
+        return {
+          pre: function preLink (scope, iElement, iAttrs, controller) { ... },
+          post: function postLink (scope, iElement, iAttrs, controller) { ... }
+        }
+      }
+    };
+  });
+  
+  
 </code>
 </pre>
         </section>
@@ -589,38 +590,18 @@ function (tElement, tAttrs, transclude) {
           <h3>Linking</h3>
         </section>
         <section>
-          <p>Directives that want to modify the DOM typically use the link option.</p>
+          <p>Directives that want to modify the element or scope typically use the link option.</p>
         </section>
         <section>
-          <p>The link property takes a function with the following signature</p><br>
-          <pre><code data-trim>
-function(scope, element, attrs) {
-
-}
-
-</code></pre>
-          <ul>
-            <li><strong>scope</strong> is the Angular scope of the directive (isolate).</li>
-            <li><strong>element</strong> is the jqLite-wrapped element that this directive matches.</li>
-            <li>
-              <strong>attrs</strong> is a hash object with key-value pairs of normalized attribute names and their corresponding attribute values.
-              
-            </li>
-          </ul>
-        </section>
-        <section>
-          <p>Inside the link function, you can initialize scope, watch properties, modify element attributes, and etc.</p>
-        </section>
-        <section>
-          <p>For example</p><br>
+          <p>Inside the link function, you can initialize scope, watch properties, modify element attributes, and etc.</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
   .directive('myCoolDirective', function() {
     return {
       scope: {
         myVar: '='
-      }
-      link: function(scope, element, attrs) {
+      },
+      link: function postLink (scope, element, attrs) {
         scope.updatedCount = 0;
         scope.$watch('myVar', function() {
           scope.updatedCount += 1;
@@ -641,23 +622,6 @@ angular.module('app.directives', [])
             <li>Compile is used to modify the directive's <strong>template</strong>.</li>
             <li>Link has access to <strong>Scope</strong>.</li>
           </ul>
-        </section>
-        <section>
-          <h3>Replace</h3>
-        </section>
-        <section>
-          <p>When replace is true, the template will replace the element the directive is specified on.</p>
-          <p>When replace is false, the template will be placed inside the element the directive is specified on.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      replace: true
-    };
-  });
-  
-</code>
-</pre>
         </section>
         <section>
           <h3>Restrict</h3>
@@ -684,6 +648,23 @@ angular.module('app.directives', [])
   .directive('myCoolDirective', function() {
     return {
       restrict: 'AECM'
+    };
+  });
+  
+</code>
+</pre>
+        </section>
+        <section>
+          <h3>Replace</h3>
+        </section>
+        <section>
+          <p>When replace is true, the template will replace the element the directive is specified on.</p>
+          <p>When replace is false, the template will be placed inside the element the directive is specified on.</p><br>
+          <pre><code data-trim>
+angular.module('app.directives', [])
+  .directive('myCoolDirective', function() {
+    return {
+      replace: true
     };
   });
   
