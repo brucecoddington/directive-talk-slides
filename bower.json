@@ -1,5 +1,5 @@
 {
-  "name": "reveal-template",
+  "name": "TDA Angular Slides",
   "version": "0.0.3",
   "ignore": [
     "**/.*",
@@ -15,7 +15,7 @@
     "lesshat": "~2.0.15",
     "font-awesome": "4.0.3",
     "highlight.js": "components/highlightjs",
-    "angular": "~1.2.14",
-    "angular-animate": "~1.2.14"
+    "angular": "~1.2.20",
+    "angular-animate": "~1.2.20"
   }
 }

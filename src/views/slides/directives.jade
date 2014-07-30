@@ -1,12 +1,8 @@
 doctype html
 include ../includes/mixins
 
-+page("Lecture 08 - Directives")
-  +lecture-title-page("Directives", "Lecture 08")
-
-  section
-    h1 Lab Seven
-    h2 Solution
++page("Directives")
+  +lecture-title-page("Directives", "DSL for HTML")
 
   section
     h1 Directives
@@ -15,30 +11,6 @@ include ../includes/mixins
     p
       | At a high level, directives are markers on a DOM element (such as an attribute, element name, or CSS class)
       | that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
-
-  section
-    p Before we can write a directive, we need to know how Angular's HTML compiler determines when to use a given directive.
-
-  section
-    h2 Matching Directives
-
-  section
-    p In the following example, we say that the &lt;input&gt; element matches the ngModel directive.
-    br
-    .text-center
-      pre.
-        <code class="html" data-trim>
-        &lt;input ng-model="myModel" /&gt;
-
-        </code>
-
-  section
-    p Angular normalizes an element's tag and attribute name to determine which elements match which directives.
-
-  section
-    p
-      | Directives are typically declared in camelCase form.  Since HTML is case insensitive, directives are referred to in their
-      | lower-case-dash-delimited form when attached to elements.
 
   section
     p Below is an example of declaring a directive and referring to it in HTML.
@@ -88,15 +60,7 @@ include ../includes/mixins
         </code>
 
   section
-    h4 So which should you use?
-    p For best browser support, the attribute method is preferred (old version of IE).
-    p Otherwise, for newer browsers, the tag method is preferred.
-
-  section
     h2 Creating directives
-
-  section
-    p Like controllers, directives are registered on modules.
 
   section
     p
@@ -117,11 +81,6 @@ include ../includes/mixins
       </code>
 
   section
-    p
-      | This factory function should return an object with the different options to tell $compile how
-      | the directive should behave when matched.
-
-  section
     h2 Directive Configuration
 
   section
@@ -139,52 +98,17 @@ include ../includes/mixins
         .directive('myCoolDirective', function() {
           return {
             template: '&lt;div&gt;{{helloWorld}}&lt;/div&gt;'
-          };
-        });
+            
+            or
 
-      </code>
-
-  section
-    p More often that not, your templates will be large.  In this case, it's better to use the templateUrl option.
-    br
-    pre.
-      <code data-trim>
-      angular.module('app.directives', [])
-        .directive('myCoolDirective', function() {
-          return {
             templateUrl: 'templates/directives/my-cool-directive.html'
           };
         });
 
       </code>
-
-  section
-    p One important thing to note about directive templates is that they can only have one root element.
-
-  section
-    p If a directive template has more than one root element, the $compile service will throw an error.
-
-  section
-    p Is the following directive template valid?
-    br
-    pre.
-      <code class="html" data-trim>
-      &lt;!-- TODO: Do something meaningful --&gt;
-      &lt;div class="text-center"&gt;
-        &lt;p&gt;Hello World!&lt;/p&gt;
-      &lt;/div&gt;
-
-      </code>
-
-  section
-    h4 Nope!
-    p HTML comments are elements which means this template violates the one root element rule.
     
   section
     h3 Replace
-    
-  section
-    p The replace option specifies how the template should be placed in the directive.
     
   section
     p When replace is true, the template will replace the element the directive is specified on.
@@ -492,12 +416,6 @@ include ../includes/mixins
     h3 Controllers
 
   section
-    p You can easily attach controllers to directives with the controller option.
-
-  section
-    p There are two ways to specify controllers on directives.
-
-  section
     p You can declare a controller inline
     br
     pre.
@@ -538,240 +456,3 @@ include ../includes/mixins
 
       </code>
 
-    p This is very useful if you want to share controllers across directives.
-
-  section
-    h3 Require
-
-  section
-    p In some cases, you'll want to use multiple directives together and have them communicate with each other.
-
-  section
-    p The ngModel and validation directives are a great example of this behavior.
-
-  section
-    p The ngModel directive controls the binding between the input (view) value and model value.
-    p The ng-maxlength directive tells the ngModel directive when the view value is valid and that it should update the model.
-    br
-    .text-center
-      pre.
-        <code class="html" data-trim>
-        &lt;input ng-model="myString" ng-maxlength="5" /&gt;
-
-        </code>
-
-  section
-    p For this use case, AngularJS provides the "require" configuration option for directives.
-
-  section
-    p The require option tells the $compile service to find another directive and inject it's controller as the fourth argument to the linking function.
-
-  section
-    p The require option takes a string name (or array of strings) of the directive(s) to pass in.
-
-  section
-    p If no such directive can be found, or if the directive does not have a controller, then an error is raised.
-
-  section
-    p The require names can be prefixed with flags to tell the $compile service how to find another directive's controller.
-
-  section
-    h4 (no prefix)
-    p Locate the required controller on the current element. Throw an error if not found.
-
-  section
-    h4 ?
-    p Attempt to locate the required controller or pass null to the link function if not found.
-
-  section
-    h4 ^
-    p Locate the required controller by searching the element's parents. Throw an error if not found.
-
-  section
-    h4 ?^
-    p Attempt to locate the required controller by searching the element's parents or pass null to the link function if not found.
-
-  section
-    p Lets look at creating a directive that requires the ngModel directive
-
-  section
-    p Since, ngModel and myCoolDirective are siblings (on the same element), we wont need to specify a prefix.
-    br
-    .text-center
-      pre.
-        <code class="html" data-trim>
-        &lt;input ng-model="myString" my-cool-directive /&gt;
-
-        </code>
-
-  section
-    p Now that the ngModel controller is injected into our link function, we can interface it's controller.
-    br
-    pre.
-      <code data-trim>
-      angular.module('app.directives', [])
-        .directive('myCoolDirective', function() {
-          return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, ngModel) {
-              console.log("Model Value", ngModel.$modelValue);
-              console.log("View Value", ngModel.$viewValue);
-            }
-          };
-        });
-
-      </code>
-
-    p Here, we're just printing out the model value and view value maintained by the ngModel controller.
-
-  section
-    p So when should you put logic in a controller vs. a linking function?
-    br
-    ul
-      li
-        strong Controller
-        |  - Your logic can be reused across directives.
-      li
-        strong Controller
-        |  - You're providing an API for use by other directives (require).
-      li
-        strong Linking Function
-        |  - You're directly manipulating DOM.
-
-  section
-    h1 Unit Testing
-    h2 Continued
-
-  section
-    p Now that we've learned about how to create our own directives, we'll need to learn how we can test them.
-
-  section
-    p First, we'll need to make sure that we inject the $compile service, our directive module, and any templates used by the directive.
-    br
-    pre.
-      <code data-trim>
-      beforeEach(module(
-        'app.directives',
-        'assets/templates/directives/my-cool-directive.html'
-      ));
-
-      beforeEach(inject(function($rootScope, _$compile_) {
-        $compile = _$compile_;
-        $scope = $rootScope.$new();
-      }));
-
-      </code>
-
-  section
-    p
-      | Then, we'll create our mock 
-      code $scope
-      | , element, and finally use the 
-      code $compile
-      |  service to compile and link our directive.
-    br
-    pre.
-      <code data-trim>
-      beforeEach(function () {
-        // Notice that we can use properties
-        // on our mock scope with the directive below
-        $scope.myColor = 'red';
-
-        // Create a jqLite element with our directive
-        element = angular.element(
-          '&lt;div my-cool-directive color="myColor"&gt;' +
-          '&lt;/div&gt;'
-        );
-
-        // This will compile the element with our mock scope
-        $compile(element)($scope);
-      });
-
-      </code>
-
-  section
-    p In a real browser, scope digests are automatically triggered by AngularJS in reaction to various events.
-
-  section
-    p There are no such events during automated testing so we'll need to force a scope digest.
-
-  section
-    p The forced digest cycle will propagate changes between the parent scope and isolate scope.
-    br
-    pre.
-      <code data-trim>
-      beforeEach(function () {
-        $scope.myColor = 'red';
-
-        element = angular.element(
-          '&lt;div my-cool-directive color="myColor"&gt;' +
-          '&lt;/div&gt;'
-        );
-
-        $compile(element)($scope);
-
-        // This propagate the value of $scope.myColor with the
-        // directive's scope.color
-        $scope.$digest();
-      });
-
-      </code>
-
-  section
-    p Now we're ready to start testing the expected behavior of the directive.
-
-  section
-    p Lets assume that myCoolDirective sets the CSS attribute  "color" on the element based on myColor.
-    br
-    pre.
-      <code data-trim>
-      describe('my cool directive', function() {
-        it('should set the element color', function () {
-          expect(element.css('color')).to.equal('red');
-        });
-
-        it('should respond to changes', function () {
-          // Notice that we're forcing a digest by using apply
-          $scope.$apply(function() {
-            $scope.myColor = 'blue';
-          });
-          expect(element.css('color')).to.equal('blue');
-        });
-      });
-
-      </code>
-
-  section
-    p What if we want to test something that's not directly accessable through the DOM?
-
-  section
-    p AngularJS provides jqLite functions that expose the parent scope and isolate scope of a particular element
-
-  section
-    p
-      | The non-isolate scope can be accessed by calling
-      code element.scope()
-
-  section
-    p
-      | The isolate scope can be accessed by calling
-      code element.isolateScope()
-
-  section
-    p Here, we can validate the binding between the parent and isolate scope.
-    br
-    pre.
-      <code data-trim>
-      describe('my cool directive', function() {
-        it('should have bound scopes', function () {
-          $scope.$apply(function() {
-            $scope.myColor = 'blue';
-          });
-          expect(element.isolateScope().color).to.equal('blue');
-        });
-      });
-
-      </code>
-
-  section
-    h2 Lab 8 - Directives

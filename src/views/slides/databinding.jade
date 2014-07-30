@@ -1,12 +1,8 @@
 doctype html
 include ../includes/mixins
 
-+page("Lecture 02 - Angular Bootcamp")
-  +lecture-title-page("Angular Bootcamp", "Lecture 02")
-
-  section
-    h1 Lab One
-    h2 Solution
++page("Data Binding")
+  +lecture-title-page("Angular Data Binding", "back and forth")
 
   section
     h1 HTML Compiler
@@ -69,9 +65,6 @@ include ../includes/mixins
 
   section
     p Scopes are arranged in hierarchical structure which mimic the DOM structure of the application.
-
-  section
-    p We'll discuss directives and scope in detail later.
 
   section
     p Let's see the HTML compiler in action
@@ -165,11 +158,6 @@ include ../includes/mixins
 
   section
     p Modules can list other modules as their dependencies.
-
-  section
-    p Depending on a module implies that required module needs to be loaded before the requiring module is loaded.
-
-  section
     p Each module will only be loaded once, even if multiple other modules require it.
 
   section
@@ -189,35 +177,14 @@ include ../includes/mixins
 
       </code>
 
-    p Notice the order.  Will this work?
-
-  section
-    p Yes.
-    p
-      | Because modules do nothing at load time, they can be loaded into the VM in any order and thus script
-      | loaders can take advantage of this property and parallelize the loading process.
-
   section
     h1 Dependency
     h1 Injection
 
   section
-    p Dependency Injection (DI) is a software design pattern that deals with how code gets hold of its dependencies.
-
-  section
     p
        | The Angular injector subsystem is in charge of service instantiation, resolution of dependencies, and
        | provision of dependencies to components as requested.
-
-  section
-    p
-      | The simplest way to get hold of the dependencies, is to assume that the function parameter names are
-      | the names of the dependencies.
-
-  section
-    p
-      | Given a function, the injector can infer the names of the service to inject by examining the function
-      | declaration and extracting the parameter names.
 
   section
     p The example below shows how to specify that $scope and myService need to be injected into the function.
@@ -229,12 +196,6 @@ include ../includes/mixins
         }
 
       </code>
-
-  section
-    p The argument based DI method doesn't always work, we'll elaborate on the reason in Lecture 12.
-
-  section
-    p Because of this complication, we can also use the array method for specifying dependencies.
 
   section
     p Below is the array method for injecting dependencies.
@@ -250,21 +211,6 @@ include ../includes/mixins
         ]
 
       </code>
-    p If we change the name of the function arguments, will DI still work?
-
-  section
-    p Yes.
-    p
-      | When using the array method, the injector service will use the strings as the dependency names
-      | and inject those dependencies into the function arguments in order.
-
-  section
-    p Where can you use dependency injection in Angular?
-
-  section
-    p
-      | DI is pervasive throughout Angular. You can use it in controllers, services, directives, filters,
-      | animations, and run and config blocks (all of which we will discuss later)
 
   section
     h1 Controllers
@@ -273,7 +219,7 @@ include ../includes/mixins
     p In Angular, a controller is a JavaScript constructor function that is used to augment the Angular Scope.
 
   section
-    p You can create controllers on a module.  The first argument is the controller name, and the second is the constructor function.
+    p You create controllers on a module.
     br
     pre.
       <code class="js" data-trim>
@@ -285,30 +231,6 @@ include ../includes/mixins
         );
 
       </code>
-
-  section
-    p You should use controllers to
-    ul
-      li Set up the initial state of the scope.
-      li Add behavior to the scope.
-
-  section
-    p You should not use controllers to
-    ul
-      li Manipulate DOM
-      li Share code or state across controllers
-      li Manage the life-cycle of other components
-      li Format input
-      li Format output
-
-  section
-    p We'll talk about other components that accomplish these functions later.
-
-  section
-    p In general, a controller shouldn't try to do too much.
-
-  section
-    p It should contain only the business logic needed for a single view.
 
   section
     p When creating a controller you can inject the new scope as well as other dependencies.
@@ -389,10 +311,6 @@ include ../includes/mixins
     h2(style="font-family: monospace;") {{time}}
 
   section
-    p There's no magic happening here.
-    p This demonstrates how changes on scope are reflected in the view once the DOM has been compiled and linked by Angular.
-
-  section
     h1 Bootstrapping
 
   section
@@ -413,10 +331,6 @@ include ../includes/mixins
       &lt;/html&gt;
 
       </code>
-
-  section
-    h1 Lab Two
-    h2 Angular Quickstart
 
   script.
     angular.module('lecture02', [])

@@ -28,7 +28,7 @@ module.exports = function(grunt) {
       combine : {
         files : {
           'dist/assets/css/style.css':[
-            'src/assets/js/components/highlight.js/styles/github.css',
+            'src/assets/js/highlight.js/styles/github.css',
             'dist/temp/style.css'
           ],
           'dist/assets/css/pdf.css':[
@@ -43,15 +43,15 @@ module.exports = function(grunt) {
         src : [
           
           // Reveal.js
-          'src/assets/js/components/headjs/dist/head.js',
-          'src/assets/js/components/reveal.js/js/reveal.js',
-          'src/assets/js/components/reveal.js/lib/js/classList.js',
+          'src/assets/js/headjs/dist/head.js',
+          'src/assets/js/reveal.js/js/reveal.js',
+          'src/assets/js/reveal.js/lib/js/classList.js',
 
           // Reveal.js Plugins
-          'src/assets/js/components/reveal.js/plugin/markdown/marked.js',
-          'src/assets/js/components/reveal.js/plugin/markdown/markdown.js',
-          'src/assets/js/components/highlight.js/highlight.pack.js',
-          'src/assets/js/components/reveal.js/plugin/zoom-js/zoom.js',
+          'src/assets/js/reveal.js/plugin/markdown/marked.js',
+          'src/assets/js/reveal.js/plugin/markdown/markdown.js',
+          'src/assets/js/highlight.js/highlight.pack.js',
+          'src/assets/js/reveal.js/plugin/zoom-js/zoom.js',
 
           //Presentation init
           'src/js/reveal.init.js'
@@ -62,8 +62,8 @@ module.exports = function(grunt) {
       angular : {
         src : [
           //Angular
-          'src/assets/js/components/angular/angular.js',
-          'src/assets/js/components/angular-animate/angular-animate.js'
+          'src/assets/js/angular/angular.js',
+          'src/assets/js/angular-animate/angular-animate.js'
         ],
         dest: 'dist/temp/angular.js'
       }
@@ -108,22 +108,22 @@ module.exports = function(grunt) {
       vendor : {
         files: [
           {
-            src:'src/assets/js/components/angular/angular.js',
-            dest:'dist/assets/js/components/angular/angular.js'
+            src:'src/assets/js/angular/angular.js',
+            dest:'dist/assets/js/angular/angular.js'
           },
           {
-            src:'src/assets/js/components/angular-animate/angular-animate.js',
-            dest:'dist/assets/js/components/angular-animate/angular-animate.js'
+            src:'src/assets/js/angular-animate/angular-animate.js',
+            dest:'dist/assets/js/angular-animate/angular-animate.js'
           },
           {
             expand: true,
-            cwd: 'src/assets/js/components/reveal.js/lib/font',
+            cwd: 'src/assets/js/reveal.js/lib/font',
             src:['**'],
             dest:'dist/assets/font'
           },
           {
             expand: true,
-            cwd: 'src/assets/js/components/font-awesome/fonts',
+            cwd: 'src/assets/js/font-awesome/fonts',
             src:['**'],
             dest:'dist/assets/font'
           }
