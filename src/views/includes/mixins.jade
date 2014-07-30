@@ -7,33 +7,34 @@ mixin page(title)
       meta(name="apple-mobile-web-app-capable", content="yes")
       meta(name="apple-mobile-web-app-status-bar-style", content="black-translucent")
       meta(name="description", content=title)
-      link(href="/angular-training/assets/css/style.css", rel="stylesheet", type="text/css")
-      script(src="/angular-training/assets/js/angular.js")
+      link(href="/angular-slides/assets/css/style.css", rel="stylesheet", type="text/css")
+      script(src="/angular-slides/assets/js/angular.js")
       script(type='text/javascript').
         if( window.location.search.match( /print-pdf/gi ) ) {
           var link = document.createElement( 'link' );
           link.rel = 'stylesheet';
           link.type = 'text/css';
-          link.href = '/angular-training/assets/css/pdf.css';
+          link.href = '/angular-slides/assets/css/pdf.css';
           document.getElementsByTagName( 'head' )[0].appendChild( link );
         }
 
     body
       .reveal
         .opi-logo
+        .tda-logo
         .slides
           block
 
-      script(src="/angular-training/assets/js/app.js")
+      script(src="/angular-slides/assets/js/app.js")
 
 
 mixin animated-header()
   .sliding-image-container
-    img.animate-logos.angular(src="/angular-training/assets/img/angular.png")
-    img.animate-logos.grunt(src="/angular-training/assets/img/grunt-logo.png")
-    img.animate-logos.yeoman(src="/angular-training/assets/img/yeoman-logo.png")
-    img.animate-logos.node(src="/angular-training/assets/img/node-logo.png")
-    img.animate-logos.bower(src="/angular-training/assets/img/bower-logo.png")
+    img.animate-logos.angular(src="/angular-slides/assets/img/angular.png")
+    img.animate-logos.grunt(src="/angular-slides/assets/img/grunt-logo.png")
+    img.animate-logos.yeoman(src="/angular-slides/assets/img/yeoman-logo.png")
+    img.animate-logos.node(src="/angular-slides/assets/img/node-logo.png")
+    img.animate-logos.bower(src="/angular-slides/assets/img/bower-logo.png")
   .fading-header-container
     h1.animate-headers.angular Angular.js
     h1.animate-headers.grunt Grunt.js

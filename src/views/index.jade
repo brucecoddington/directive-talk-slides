@@ -2,16 +2,906 @@ doctype html
 include includes/mixins
 
 +page("TDA JS Summit")
+  +lecture-title-page("TD Amertrade JS Summit", "Angular JS")
+
   section.index-page
     h2 AngularJS
-    h4 Slides
+
+  section
+    h2 Introduction
     ul
-      li
-        a(href="slides/intro.html", target="_blank") Intro
-      li
-        a(href="slides/databinding.html", target="_blank") Binding
-      li
-        a(href="slides/providers.html", target="_blank") Providers
-      li
-        a(href="slides/directives.html", target="_blank") Directives
+      li Bruce Coddington
+        a(href="https://twitter.com/brucecoddington", target="_blank") (@brucecoddington)
+      li bruce.coddington@tdameritrade.com
+      li bruce.coddington@objectpartners.com
+
+  section
+    h2 Objectives
+    ul
+      li Share our experience building a production application using Angular JS
+      li High level, firehose introduction to Angular's components
+      li I love questions, don't be shy..you cannot derail me
+
+  section
+    h1 Topics
+    ul
+      li Overview
+      li Factories and Providers
+      li Custom Directives
+
+  section
+    h1 Module System
+
+  section
+    p Angular apps don't have a main method. Instead, modules declaratively specify how an application should be bootstrapped.
+
+  section
+    p There are several advantages to this approach
+    ul
+      li The declarative process is easier to understand.
+      li You can package code as reusable modules.
+      li The modules can be loaded in any order because modules delay execution.
+
+  section
+    p What does a module look like?
+
+  section
+    p The code below creates a new module named 'app'
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', []);
+
+      </code>
+
+  section
+    p Modules can list other modules as their dependencies.
+    p Each module will only be loaded once, even if multiple other modules require it.
+
+  section
+    p Below is an example of how to specify a module dependency.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', [
+        'feature1'
+      ]);
+
+      angular.module('feature1', [
+        'feature1.1'
+      ]);
+
+      angular.module('feature1.1', []);
+
+      </code>
+
+  section
+    h1 Dependency
+    h1 Injection
+
+  section
+    p
+       | The Angular injector subsystem is in charge of service instantiation, resolution of dependencies, and
+       | provision of dependencies to components as requested.
+
+  section
+    p The example below shows how to specify that $scope and myService need to be injected into the function.
+    br
+    pre.
+      <code class="js" data-trim>
+        function AwesomeFn($scope, myService) {
+
+        }
+
+      </code>
+
+  section
+    p Angular also has an array syntax for specifying dependencies, similar to AMD.
+    br
+    pre.
+      <code class="js" data-trim>
+        [
+          '$scope',
+          'myService',
+          function AwesomeFn($scope, myService) {
+
+          }
+        ]
+
+      </code>
+
+  section
+    h1 HTML Compiler
+
+  section
+    p Angular's HTML compiler allows the developer to teach the browser new HTML syntax.
+
+  section
+    p
+      | It allows you to attach behavior to any HTML element or attribute and even create new HTML
+      | elements or attributes with custom behavior.
+
+  section
+    p Angular calls these behavior extensions
+      strong  directives.
+
+  section
+    p So what does a directive look like?
+    br
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;div ng-bind="exp"&gt;&lt;/div&gt;
+
+        </code>
+
+  section
+    p The compiler($compile) is an Angular service that traverses the DOM looking for directives.
+
+  section
+    p The compilation process happens in two phases.
+
+  section
+    h3 Link
+    p Traverse the DOM and collect all of the directives.
+
+  section
+    h3 Compile
+    p
+      | Combine the directives with a scope and produce a live view. Any changes in the scope model are
+      | reflected in the view, and any user interactions with the view are reflected in the scope model.
+
+  section
+    h2 Scope
+
+  section
+    p Scope is an object that refers to the application model.  It is an execution context for expressions.
+    p Scopes are arranged in hierarchical structure which mimic the DOM structure of the application.
+
+  section
+    p Let's see the HTML compiler in action
+
+  section
+    p ng-init evaluates a JavaScript expression on scope.
+    p ng-bind takes a variable on scope and sets the content of the element to it.
+    br
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-init="myVar = 1 + 2;"&gt;
+        &lt;p ng-bind="myVar"&gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+    p What will the DOM look like after compilation and linking?
+
+  section
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-init="myVar = 1 + 2;"&gt;
+        &lt;p ng-bind="myVar"&gt;3&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section
+    p Instead of using ng-bind, we can use the shorthand {{ }}
+
+  section
+    p The linker will execute the expression inside {{ }} on scope and replace it with the result.
+
+  section
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-init="myVar = 1 + 2;"&gt;
+        &lt;p&gt;{{myVar}}{{myVar + 1}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+    p What will the DOM look like after compilation and linking?
+
+  section
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-init="myVar = 1 + 2;"&gt;
+        &lt;p&gt;34&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section
+    h1 Controllers
+
+  section
+    p In Angular, a controller is a JavaScript constructor function that is used to augment the Angular Scope.
+
+  section
+    p You create controllers on a module.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app.controllers', [])
+        .controller('AppController',
+          function() {
+
+          }
+        );
+
+      </code>
+
+  section
+    p When creating a controller you can inject the new scope as well as other dependencies.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app.controllers', [])
+        .controller('AppController',
+          function($scope, $interval) {
+
+          }
+        );
+
+      </code>
+
+  section
+    p You can associate controllers with scope objects implicitly via the ngController directive.
+
+  section
+    p Controller
+    pre.
+      <code class="js" data-trim>
+      angular.module('app.controllers', [])
+        .controller('AppController',
+          function($scope) {
+            $scope.time = new Date();
+          }
+        );
+
+      </code>
+
+    p Template
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-controller="AppController" &gt;
+        &lt;p&gt;{{time}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section(id="example1", ng-controller="AppController")
+    p Final result
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-controller="AppController" &gt;
+        &lt;p&gt;{{time}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section
+    p Lets add some functionality to scope and show off data binding.
+
+  section
+    p The $interval service executes a function on scope in the supplied interval.
+    pre.
+      <code class="js" data-trim>
+      angular.module('app.controllers', [])
+        .controller('TimeController',
+          function($scope, $interval) {
+            // Set the value of $scope.time to 'now' every 10 ms
+            $interval(function() {
+              $scope.time = new Date();
+            }, 10);
+          }
+        );
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div ng-controller="TimeController"&gt;
+        &lt;p&gt;{{time}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section(id="example2", ng-controller="TimeController")
+    h2(style="font-family: monospace;") {{time}}
+
+  section
+    h1 Bootstrapping
+
+  section
+    p
+      | Angular initializes automatically upon DOMContentLoaded event or when the angular.js script is evaluated if at that
+      | time document.readyState is set to 'complete'.
+
+  section
+    p At this point Angular looks for the ng-app directive which designates your application root.
+
+  section
+    p Typically the ng-app directive is used on the root html or body elements so that the entire document is traversed and linked by the compiler.
+    br
+    pre.
+      <code class="html" data-trim>
+      &lt;html ng-app="app"&gt;
+
+      &lt;/html&gt;
+
+      </code>
+
+  section
+    h2 App Boostrap Demo
+
+  section
+    h1 Providers
+
+  section
+    p The AngularJS injector creates two types of objects:
+    ul
+      li Specialized objects
+      li Services
+
+  section
+    h3 Specialized Objects
+    p Specialized objects conform to a specific Angular framework API.
+    p Controllers, directives, filters or animations.
+
+  section
+    h3 Services
+    p Services are objects whose API is defined by the developer writing the service.
+    p 5 Recipe Types
+
+  section
+    h2 Value Recipe
+
+  section
+    p The Value recipe is often used for specifying configuration values.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', [])
+        .value('apiUrl', '/api')
+        .controller('MyCtrl', function(apiUrl) {
+          // Do something with the apiUrl
+        });
+
+      </code>
+
+  section
+    h2 Constant Recipe
+
+  section
+    pre.
+      <code class="js" data-trim>
+      angular.module('app')
+        .constant('apiUrl', '/api');
         
+      </code>
+
+  section
+    h2 Providers
+    p Core of the Angular services
+    p Used by the injector 
+
+  section
+    p Let's look at an example:
+    pre.
+      <code class="js" data-trim>
+      .provider('authorization', {
+
+        $get: function ($injector, authentication, securityContext) {
+          return {
+            requireAuthenticatedUser: function () {
+              // implementation for requiring an authenticated user.
+            }
+          };
+        }
+      });
+
+      </code>
+
+  section
+    h2 Factory Recipe
+
+  section
+    p We can use the Factory recipe to provide utility functions that have other dependencies.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', [])
+        .factory('authentication', function(myDependency) {
+          var authentication = {
+            login : function(username, password) {
+              // Perform login functionality with myDependency
+            },
+            logout : function(username, password) {
+              // Perform logout functionality with myDependency
+            },
+          };
+          return authentication;
+        });
+
+      </code>
+
+  section
+    h2 Service Recipe
+
+  section
+    p Using the service recipe, we just provide the constructor function.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', [])
+        .service('authentication', function(myDependency) {
+          this.loginAttempts = 0;
+
+          this.login = function(username, password) {
+            this.loginAttempts++;
+            // Perform login functionality with myDependency
+          };
+
+          this.logout = function(username, password) {
+            this.loginAttempts = 0;
+            // Perform logout functionality with myDependency
+          };
+        });
+
+      </code>
+
+  section
+    h1 Directives
+
+  section
+    p
+      | At a high level, directives are markers on a DOM element (such as an attribute, element name, or CSS class)
+      | that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
+
+  section
+    p Angular is the meta-framework to create a new vocabulary(dsl) for the browser. 
+    p Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.
+
+  section
+    p $compile can match directives based on element names,
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;my-cool-directive&gt; &lt;/my-cool-directive&gt;
+
+        </code>
+    p attributes,
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;div my-cool-directive&gt; &lt;/div&gt;
+
+        </code>
+    p class names,
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;div class="my-cool-directive"&gt; &lt;/div&gt;
+
+        </code>
+    p and html comments.
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;!-- directive: my-cool-directive --&gt;
+
+        </code>
+
+  section
+    p Below is an example of declaring a directive and referring to it in HTML.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', [
+          //...
+        ]);
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-cool-directive&gt;&lt;/div&gt;
+
+      </code>
+
+  section
+    h2 Directive Configuration
+
+  section
+    h3 Compile
+
+  section
+    h3 Linking
+
+  section
+    p Directives that want to modify the DOM typically use the link option.
+
+  section
+    p The link property takes a function with the following signature
+    br
+    pre.
+      <code data-trim>
+      function(scope, element, attrs) {
+
+      }
+
+      </code>
+    ul
+      li.
+        <strong>scope</strong> is the Angular scope of the directive (isolate).
+      li.
+        <strong>element</strong> is the jqLite-wrapped element that this directive matches.
+      li.
+        <strong>attrs</strong> is a hash object with key-value pairs of normalized attribute names and their corresponding attribute values.
+
+  section
+    p Inside the link function, you can initialize scope, watch properties, modify element attributes, and etc.
+
+  section
+    p For example
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              myVar: '='
+            }
+            link: function(scope, element, attrs) {
+              scope.updatedCount = 0;
+              scope.$watch('myVar', function() {
+                scope.updatedCount += 1;
+                var contents = 'myVar updated ' +
+                  scope.updatedCount + ' times.';
+                element.text(contents);
+              });
+            }
+          };
+        });
+
+      </code>
+
+  section
+    p When do I use compile vs. linking?
+    ul
+      li Compile is used to modify the directive's <strong>template</strong>.
+      li Link has access to <strong>Scope</strong>.
+
+  section
+    h3 Template
+
+  section
+    p You can add inline templates for very small templates or provide a url for larger templates.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            template: '&lt;div&gt;{{helloWorld}}&lt;/div&gt;'
+            
+            or
+
+            templateUrl: 'templates/directives/my-cool-directive.html'
+          };
+        });
+
+      </code>
+    
+  section
+    h3 Replace
+    
+  section
+    p When replace is true, the template will replace the element the directive is specified on.
+    p When replace is false, the template will be placed inside the element the directive is specified on.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            replace: true
+          };
+        });
+
+      </code>
+
+  section
+    h3 Restrict
+
+  section
+    p
+      | When you create a directive, it is restricted to attribute only by default. In order to create
+      | directives that are triggered by element or class name, you need to use the restrict option.
+    ul
+      li.
+        <strong>A</strong> - Matches attribute name.
+      li.
+        <strong>E</strong> - Matches element name.
+      li.
+        <strong>C</strong> - Matches class name.
+      li.
+        <strong>M</strong> - Matches HTML comment.
+
+  section
+    p The directive below would match elements, attributes, CSS class names, or HTML comments.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            restrict: 'AECM'
+          };
+        });
+
+      </code>
+
+  section
+    h3 Scope
+
+  section
+    p By default, a directive uses the parent scope.
+    p This can be problematic because it could set or change values that already exist, breaking encapsulation.
+
+  section
+    p
+      | What we want to be able to do is separate the scope inside a directive from the scope outside, and
+      | then map the outer scope to a directive's inner scope.
+
+  section
+    p The directive below will have an isolate scope that is not mapped to anything in the parent scope (completely isolated)
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: true
+          };
+        });
+
+      </code>
+
+  section
+    p When we want to map the outer scope to the directives inner scope, we use a scope configuration object.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective',function() {
+          return {
+            scope: {
+              // ...
+            }
+          };
+        });
+
+      </code>
+
+  section
+    p There are multiple ways to map parent scope to the isolate scope.
+    p Lets start with the most common, '=' or two way binding.
+
+  section
+    p This will instruct Angular to bind the value supplied with the element attribute "some-attribute" to the isolate scope.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              someAttribute: '='
+            }
+          };
+        });
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-cool-directive some-attribute="myAttribute"&gt;&lt;/div&gt;
+
+      </code>
+
+  section
+    p This will create a two way mapping between the parent scope and the isolate scope.
+    p Changes made in the parent scope are reflected in the isolate scope and visa versa.
+    img.no-style(src="/angular-slides/assets/img/scope.png")
+
+  section
+    p Next, we have function binding or '&'
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              someCalculation: '&'
+            }
+          };
+        });
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-cool-directive some-calculation="calculateSomeValue()" &gt;&lt;/div&gt;
+
+      </code>
+
+  section
+    p The '&' binding allows a directive to trigger evaluation of an expression in the context of the original scope, at a specific time.
+
+  section
+    p Any legal expression is allowed, including an expression which contains a function call.
+    
+  section
+    p The '&' binding is very useful for supplying callbacks to directives.
+
+  section
+    p The last type of binding in the attribute value or expression binding '@'.
+
+  section
+    p
+      | The '@' binding maps the attribute value (string) in the context of the parent scope to the isolate scope.
+
+  section
+    p If scope.value was 5, the value of attributeValue in the isolate scope would be "11" (string).
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective',function() {
+          return {
+            scope: {
+              attributeValue: '@'
+            }
+          };
+        });
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-cool-directive attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
+
+      </code>
+
+  section
+    h3 Controllers
+
+  section
+    p You can declare a controller inline
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              myVar: '='
+            },
+            controller: function($scope) {
+
+            }
+          };
+        });
+
+      </code>
+
+    p The $scope injected into the controller will be the isolate scope of the directive.
+
+  section
+    p Or, you can specify the name of an existing controller
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .controller('MyCoolDirectiveController', function($scope) {
+
+        })
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              myVar: '='
+            },
+            controller: 'MyCoolDirectiveController'
+          };
+        });
+
+      </code>
+
+  section
+    h3 Transclude
+
+  section
+    p The transclude option changes the way scopes are nested.
+
+  section
+    p The best way to look at transclusion is as a picture frame.
+    img.no-style(src="/angular-slides/assets/img/transclude-frame.png")
+
+  section
+    p First, lets look at using a transclude directive
+    br
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-frame-directive &gt;
+        &lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section
+    p Now, lets look at the template for a transclusion directive
+    br
+    pre.
+      <code class="html" data-trim>
+      &lt;div class="{{isolateScopeVariable}}"&gt;
+        &lt;div ng-transclude &gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      </code>
+    p Angular will place the contents of the directive
+    .text-center
+      pre.
+        <code class="html" data-trim>
+        &lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
+
+        </code>
+    p in the place of the element with the ng-transclude attribute
+
+  section
+    p After compilation, the final DOM will look like
+    br
+    pre.
+      <code class="html" data-trim>
+      &lt;div class="{{isolateScopeVariable}}"&gt;
+        &lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
+      &lt;/div&gt;
+
+      </code>
+
+  section
+    p To use transclusion with a directive, just add the transclude option to the directive configuration.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myFrameDirective', function() {
+          return {
+            transclude: true
+          };
+        });
+
+      </code>
+
+  section
+    h1 Directive Demo  
+
+  script.
+    angular.module('databinding', [])
+      .controller('AppController', [
+        '$scope',
+        function($scope) {
+          $scope.time = new Date();
+        }
+      ])
+      .controller('TimeController', [
+        '$scope',
+        '$interval',
+        function($scope, $interval) {
+          $interval(function() {
+            $scope.time = new Date();
+          }, 10);
+        }
+      ]);
+
+    angular.bootstrap(document.getElementById("example1"), ['databinding']);
+    angular.bootstrap(document.getElementById("example2"), ['databinding']);
+      

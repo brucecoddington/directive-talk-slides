@@ -187,12 +187,12 @@ module.exports = function(grunt) {
       .use(redirect())
       .use(function(req, res, next) {
         if (req.url == '/') {
-          res.redirect('/angular-training');
+          res.redirect('/angular-slides');
         } else {
           next();
         }
       })
-      .use('/angular-training', connect.static('dist'))
+      .use('/angular-slides', connect.static('dist'))
       .listen(8001);
   });
 

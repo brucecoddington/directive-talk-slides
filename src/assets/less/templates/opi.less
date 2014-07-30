@@ -12,6 +12,10 @@
 @logo-overview-opacity:       0.1;
 @logo-red-color:              #ee311d;
 
+@tda-logo-width:                  200px;
+@tda-logo-height:                 200px;
+@tda-logo-default-scale:          0.7;
+
 @link-color:                  darken(desaturate(@logo-red-color, 20%), 10%);
 @link-hover-color:            desaturate(@link-color, 10%);
 @link-roll-bg:                darken(desaturate(@logo-red-color, 20%), 25%);
@@ -39,6 +43,20 @@ body {
   width: floor(@logo-width * @logo-default-scale);
   height: floor(@logo-height * @logo-default-scale);
   background-image: url('../img/opi-logo.png');
+  background-repeat: no-repeat;
+  background-position:left top;
+  background-size: 100%;
+  opacity: @logo-default-opacity;
+  .transition(~"left 0.7s ease, opacity 0.7s ease");
+}
+
+.reveal .tda-logo {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  width: floor(@tda-logo-width * @tda-logo-default-scale);
+  height: floor(@tda-logo-height * @tda-logo-default-scale);
+  background-image: url('../img/tda-logo.png');
   background-repeat: no-repeat;
   background-position:left top;
   background-size: 100%;
