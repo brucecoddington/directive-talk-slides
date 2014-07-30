@@ -175,11 +175,11 @@ angular.module('feature1.1', []);
           <p>The compilation process happens in two phases.</p>
         </section>
         <section>
-          <h3>Link</h3>
+          <h3>Compile</h3>
           <p>Traverse the DOM and collect all of the directives.</p>
         </section>
         <section>
-          <h3>Compile</h3>
+          <h3>Link</h3>
           <p>
             Combine the directives with a scope and produce a live view. Any changes in the scope model are
             reflected in the view, and any user interactions with the view are reflected in the scope model.
@@ -191,6 +191,13 @@ angular.module('feature1.1', []);
         <section>
           <p>Scope is an object that refers to the application model.  It is an execution context for expressions.</p>
           <p>Scopes are arranged in hierarchical structure which mimic the DOM structure of the application.</p>
+        </section>
+        <section>
+          <h3>Communicating with Angular from the outside</h3>
+          <ul>
+            <li><strong>$apply</strong> : Gets you from the outside into the Ng world.</li>
+            <li><strong>$parse</strong> : Gets you two-way binding.</li>
+          </ul>
         </section>
         <section>
           <p>Let's see the HTML compiler in action</p>
@@ -366,25 +373,26 @@ angular.module('app.controllers', [])
         <section>
           <p>The AngularJS injector creates two types of objects:</p>
           <ul>
-            <li>Specialized objects</li>
+            <li>Specialized Objects</li>
             <li>Services</li>
           </ul>
         </section>
         <section>
           <h3>Specialized Objects</h3>
-          <p>Specialized objects conform to a specific Angular framework API.</p>
+          <p>Conform to a specific Angular framework API.</p>
           <p>Controllers, directives, filters or animations.</p>
         </section>
         <section>
           <h3>Services</h3>
-          <p>Services are objects whose API is defined by the developer writing the service.</p>
+          <p>Objects whose API is defined by the developer (you).</p>
           <p>5 Recipe Types</p>
         </section>
         <section>
           <h2>Value Recipe</h2>
         </section>
         <section>
-          <p>The Value recipe is often used for specifying configuration values.</p><br>
+          <p>Key,Value Pair</p>
+          <p>Often used for specifying configuration during runtime.</p><br>
           <pre><code class="js" data-trim>
 angular.module('app', [])
   .value('apiUrl', '/api')
@@ -399,6 +407,7 @@ angular.module('app', [])
           <h2>Constant Recipe</h2>
         </section>
         <section>
+          <p>Available during configuration phase.</p>
           <pre><code class="js" data-trim>
 angular.module('app')
   .constant('apiUrl', '/api');
@@ -483,6 +492,7 @@ angular.module('app', [])
             that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
           </p>
         </section>
+        <section><img src="/angular-slides/assets/img/wat_grande.jpg" class="no-style"></section>
         <section>
           <p>Angular is the meta-framework to create a new vocabulary(dsl) for the browser. </p>
           <p>Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.</p>
@@ -537,7 +547,43 @@ angular.module('app.directives', [])
           <h2>Directive Configuration</h2>
         </section>
         <section>
+          <h3>Template</h3>
+        </section>
+        <section>
+          <p>You can add inline templates for very small templates or provide a url for larger templates.</p><br>
+          <pre><code data-trim>
+angular.module('app.directives', [])
+  .directive('myCoolDirective', function() {
+    return {
+      template: '&lt;div&gt;{{helloWorld}}&lt;/div&gt;'
+      
+      or
+      
+      templateUrl: 'templates/directives/my-cool-directive.html'
+    };
+  });
+  
+</code>
+</pre>
+        </section>
+        <section>
           <h3>Compile</h3>
+        </section>
+        <section>
+          <p>If you need modify the directive's template, use the compile function. </p>
+        </section>
+        <section>
+          <p>The compile function </p><br>
+          <pre><code data-trim>
+function (tElement, tAttrs, transclude) {
+  return {
+    pre: function preLink (scope, iElement, iAttrs, controller) { ... },
+    post: function postLink (scope, iElement, iAttrs, controller) { ... }
+  }
+}
+
+</code>
+</pre>
         </section>
         <section>
           <h3>Linking</h3>
@@ -595,26 +641,6 @@ angular.module('app.directives', [])
             <li>Compile is used to modify the directive's <strong>template</strong>.</li>
             <li>Link has access to <strong>Scope</strong>.</li>
           </ul>
-        </section>
-        <section>
-          <h3>Template</h3>
-        </section>
-        <section>
-          <p>You can add inline templates for very small templates or provide a url for larger templates.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      template: '&lt;div&gt;{{helloWorld}}&lt;/div&gt;'
-      
-      or
-      
-      templateUrl: 'templates/directives/my-cool-directive.html'
-    };
-  });
-  
-</code>
-</pre>
         </section>
         <section>
           <h3>Replace</h3>
@@ -752,13 +778,9 @@ angular.module('app.directives', [])
 </pre>
         </section>
         <section>
-          <p>The '&' binding allows a directive to trigger evaluation of an expression in the context of the original scope, at a specific time.</p>
-        </section>
-        <section>
+          <p>Triggers evaluation of an expression in the context of the original scope, at a specific time.</p>
           <p>Any legal expression is allowed, including an expression which contains a function call.</p>
-        </section>
-        <section>
-          <p>The '&' binding is very useful for supplying callbacks to directives.</p>
+          <p>Very useful for supplying callbacks to directives.</p>
         </section>
         <section>
           <p>The last type of binding in the attribute value or expression binding '@'.</p>
@@ -782,47 +804,6 @@ angular.module('app.directives', [])
           <pre><code class="html" data-trim>
 &lt;div my-cool-directive attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
 
-</code>
-</pre>
-        </section>
-        <section>
-          <h3>Controllers</h3>
-        </section>
-        <section>
-          <p>You can declare a controller inline</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        myVar: '='
-      },
-      controller: function($scope) {
-      
-      }
-    };
-  });
-  
-</code>
-</pre>
-          <p>The $scope injected into the controller will be the isolate scope of the directive.</p>
-        </section>
-        <section>
-          <p>Or, you can specify the name of an existing controller</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .controller('MyCoolDirectiveController', function($scope) {
-  
-  })
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        myVar: '='
-      },
-      controller: 'MyCoolDirectiveController'
-    };
-  });
-  
 </code>
 </pre>
         </section>
@@ -885,6 +866,7 @@ angular.module('app.directives', [])
 </code>
 </pre>
         </section>
+        <section><img src="/angular-slides/assets/img/mind-blown.gif" class="no-style"></section>
         <section>
           <h1>Directive Demo  </h1>
         </section>
