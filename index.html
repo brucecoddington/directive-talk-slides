@@ -7,14 +7,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="description" content="TDA JS Summit">
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
-    <script src="/assets/js/angular.js"></script>
+    <link href="/tda-angular-slides/assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/tda-angular-slides/assets/js/angular.js"></script>
     <script type="text/javascript">
       if( window.location.search.match( /print-pdf/gi ) ) {
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '/assets/css/pdf.css';
+        link.href = '/tda-angular-slides/assets/css/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
       }
       
@@ -26,7 +26,7 @@
       <div class="tda-logo"></div>
       <div class="slides">
         <section data-state="index-slide" class="index-section">
-          <div class="sliding-image-container"><img src="/assets/img/angular.png" class="animate-logos angular"><img src="/assets/img/grunt-logo.png" class="animate-logos grunt"><img src="/assets/img/yeoman-logo.png" class="animate-logos yeoman"><img src="/assets/img/node-logo.png" class="animate-logos node"><img src="/assets/img/bower-logo.png" class="animate-logos bower"></div>
+          <div class="sliding-image-container"><img src="/tda-angular-slides/assets/img/angular.png" class="animate-logos angular"><img src="/tda-angular-slides/assets/img/grunt-logo.png" class="animate-logos grunt"><img src="/tda-angular-slides/assets/img/yeoman-logo.png" class="animate-logos yeoman"><img src="/tda-angular-slides/assets/img/node-logo.png" class="animate-logos node"><img src="/tda-angular-slides/assets/img/bower-logo.png" class="animate-logos bower"></div>
           <div class="fading-header-container">
             <h1 class="animate-headers angular">Angular.js</h1>
             <h1 class="animate-headers grunt">Grunt.js</h1>
@@ -487,7 +487,7 @@ angular.module('app', [])
             that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
           </p>
         </section>
-        <section><img src="/assets/img/wat_grande.jpg" class="no-style"></section>
+        <section><img src="/tda-angular-slides/assets/img/wat_grande.jpg" class="no-style"></section>
         <section>
           <p>Angular is the meta-framework to create a new vocabulary(dsl) for the browser. </p>
           <p>Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.</p>
@@ -737,7 +737,7 @@ angular.module('app.directives', [])
         </section>
         <section>
           <p>This will create a two way mapping between the parent scope and the isolate scope.</p>
-          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/assets/img/scope.png" class="no-style">
+          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/tda-angular-slides/assets/img/scope.png" class="no-style">
         </section>
         <section>
           <p>Next, we have function binding or '&'</p><br>
@@ -795,7 +795,7 @@ angular.module('app.directives', [])
           <p>The transclude option changes the way scopes are nested.</p>
         </section>
         <section>
-          <p>The best way to look at transclusion is as a picture frame.</p><img src="/assets/img/transclude-frame.png" class="no-style">
+          <p>The best way to look at transclusion is as a picture frame.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style">
         </section>
         <section>
           <p>First, lets look at using a transclude directive</p><br>
@@ -847,7 +847,7 @@ angular.module('app.directives', [])
 </code>
 </pre>
         </section>
-        <section><img src="/assets/img/mind-blown.gif" class="no-style"></section>
+        <section><img src="/tda-angular-slides/assets/img/mind-blown.gif" class="no-style"></section>
         <section>
           <h1>Directive Demo  </h1>
         </section>
@@ -894,6 +894,6 @@ angular.module('app.directives', [])
         </script>
       </div>
     </div>
-    <script src="/assets/js/app.js"></script>
+    <script src="/tda-angular-slides/assets/js/app.js"></script>
   </body>
 </html>
