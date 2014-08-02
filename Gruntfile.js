@@ -185,7 +185,7 @@ module.exports = function(grunt) {
     
     connect()
       .use(redirect())
-      .use('/', connect.static('dist'))
+      .use('/tda-angular-slides', connect.static('dist'))
       .listen(8001);
   });
 

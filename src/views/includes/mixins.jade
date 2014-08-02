@@ -7,14 +7,14 @@ mixin page(title)
       meta(name="apple-mobile-web-app-capable", content="yes")
       meta(name="apple-mobile-web-app-status-bar-style", content="black-translucent")
       meta(name="description", content=title)
-      link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
-      script(src="/assets/js/angular.js")
+      link(href="/tda-angular-slides/assets/css/style.css", rel="stylesheet", type="text/css")
+      script(src="/tda-angular-slides/assets/js/angular.js")
       script(type='text/javascript').
         if( window.location.search.match( /print-pdf/gi ) ) {
           var link = document.createElement( 'link' );
           link.rel = 'stylesheet';
           link.type = 'text/css';
-          link.href = '/assets/css/pdf.css';
+          link.href = '/tda-angular-slides/assets/css/pdf.css';
           document.getElementsByTagName( 'head' )[0].appendChild( link );
         }
 
@@ -25,16 +25,16 @@ mixin page(title)
         .slides
           block
 
-      script(src="/assets/js/app.js")
+      script(src="/tda-angular-slides/assets/js/app.js")
 
 
 mixin animated-header()
   .sliding-image-container
-    img.animate-logos.angular(src="/assets/img/angular.png")
-    img.animate-logos.grunt(src="/assets/img/grunt-logo.png")
-    img.animate-logos.yeoman(src="/assets/img/yeoman-logo.png")
-    img.animate-logos.node(src="/assets/img/node-logo.png")
-    img.animate-logos.bower(src="/assets/img/bower-logo.png")
+    img.animate-logos.angular(src="/tda-angular-slides/assets/img/angular.png")
+    img.animate-logos.grunt(src="/tda-angular-slides/assets/img/grunt-logo.png")
+    img.animate-logos.yeoman(src="/tda-angular-slides/assets/img/yeoman-logo.png")
+    img.animate-logos.node(src="/tda-angular-slides/assets/img/node-logo.png")
+    img.animate-logos.bower(src="/tda-angular-slides/assets/img/bower-logo.png")
   .fading-header-container
     h1.animate-headers.angular Angular.js
     h1.animate-headers.grunt Grunt.js
