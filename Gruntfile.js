@@ -185,14 +185,7 @@ module.exports = function(grunt) {
     
     connect()
       .use(redirect())
-      .use(function(req, res, next) {
-        if (req.url == '/') {
-          res.redirect('/angular-slides');
-        } else {
-          next();
-        }
-      })
-      .use('/angular-slides', connect.static('dist'))
+      .use('/', connect.static('dist'))
       .listen(8001);
   });
 
