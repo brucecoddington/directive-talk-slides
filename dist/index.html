@@ -46,37 +46,41 @@
           </ul>
         </section>
         <section>
-          <h2>Objectives</h2>
+          <h2>Object Partners, Inc.</h2>
           <ul>
-            <li>Share our experience building a production application using Angular JS</li>
-            <li>High level, firehose introduction to Angular's methodologies</li>
-            <li>I love questions, don't be shy..you cannot derail me</li>
+            <li>Founded 1996</li>
+            <li>Java, Groovy, JavaScript, Mobile, Open Source</li>
+            <li>~100 Senior Consultants
+              <ul>
+                <li>Minneapolis, Omaha</li>
+                <li>Chicago, Denver</li>
+                <li>Average Tenure >5 years</li>
+              </ul>
+            </li>
           </ul>
         </section>
         <section>
-          <h1>Topics</h1>
+          <h2>What are we doing?</h2>
           <ul>
-            <li>Overview</li>
-            <li>Factories and Providers</li>
-            <li>Custom Directives</li>
+            <li>Share experiences building a production application using Angular JS</li>
+            <li>High level introduction to Angular's methodologies</li>
+            <li>I love questions, don't be shy</li>
           </ul>
         </section>
         <section>
           <h1>Module System</h1>
         </section>
         <section>
-          <p>Angular apps don't have a main method. Instead, modules declaratively specify how an application should be bootstrapped.</p>
+          <p>Angular apps don't have a main method.</p>
+          <p>Modules declaratively specify how an application should be bootstrapped.</p>
         </section>
         <section>
-          <p>There are several advantages to this approach</p>
+          <h3>Advantages</h3>
           <ul>
             <li>The declarative process is easier to understand.</li>
             <li>You can package code as reusable modules.</li>
             <li>The modules can be loaded in any order because modules delay execution.</li>
           </ul>
-        </section>
-        <section>
-          <p>What does a module look like?</p>
         </section>
         <section>
           <p>The code below creates a new module named 'app'</p><br>
@@ -103,6 +107,20 @@ angular.module('feature1', [
 
 angular.module('feature1.1', []);
 
+</code>
+</pre>
+        </section>
+        <section>
+          <p>Module instantiation has 2 phases: config and run.</p><br>
+          <pre><code class="js" data-trim>
+angular.module('app', [])
+  .config(function (someProvider) {
+    // use provider to set up module
+  })
+  .run(function (aService) {
+    // use service
+  });
+  
 </code>
 </pre>
         </section>
@@ -177,9 +195,11 @@ angular.module('feature1.1', []);
         </section>
         <section>
           <h3>Link</h3>
-          <p>Combine the directives with a scope and produce a live view. </p>
-          <p>Any changes in the scope model are reflected in the view.</p>
-          <p>User interactions with the view are reflected in the scope model.</p>
+          <p>Combine the directives with a scope and create a live view.</p>
+          <ul>
+            <li>Any changes in the scope model are reflected in the view.</li>
+            <li>User interactions with the view are reflected in the scope model.</li>
+          </ul>
         </section>
         <section>
           <h2>Scope</h2>
@@ -189,10 +209,14 @@ angular.module('feature1.1', []);
           <p>Execution context for expressions.</p>
           <p>Arranged in hierarchical structure which mimic the DOM structure of the application.</p>
         </section>
+        <section><img src="/tda-angular-slides/assets/img/nested-scope.png" class="no-style slide-image"></section>
         <section>
           <h3>Communicating with the outside world</h3>
-          <p><strong>$apply</strong> : Gets you from the outside into the Ng world.</p>
-          <p><strong>$parse</strong> : Gets you two-way binding.</p>
+          <ul>
+            <li>$scope.$apply : Connect the outside into the Ng world.</li>
+            <li>$scope.$parse : Gets you two-way binding.</li>
+            <li>$scope.$watch : Helps you react to changes. </li>
+          </ul>
         </section>
         <section>
           <p>Let's see the HTML compiler in action</p>
@@ -337,6 +361,7 @@ angular.module('app.controllers', [])
         <section id="example2" ng-controller="TimeController">
           <h2 style="font-family: monospace;">{{time}}</h2>
         </section>
+        <section><img src="/tda-angular-slides/assets/img/suprised.gif" class="no-style slide-image"></section>
         <section>
           <h1>Bootstrapping</h1>
         </section>
@@ -487,11 +512,12 @@ angular.module('app', [])
             that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
           </p>
         </section>
-        <section><img src="/tda-angular-slides/assets/img/wat_grande.jpg" class="no-style"></section>
+        <section><img src="/tda-angular-slides/assets/img/wat_grande.jpg" class="no-style slide-image"></section>
         <section>
           <p>Angular is the meta-framework to create a new vocabulary(dsl) for the browser. </p>
           <p>Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.</p>
         </section>
+        <section><img src="/tda-angular-slides/assets/img/highfive.gif" class="no-style slide-image"></section>
         <section>
           <p>$compile can match directives based on element names,</p>
           <div class="text-center">
@@ -574,6 +600,8 @@ angular.module('app.directives', [])
   .directive('myCoolDirective', function() {
     return {
       compile : function (tElement, tAttrs, transclude) {
+        tElement.addClass('hipster');
+        
         return {
           pre: function preLink (scope, iElement, iAttrs, controller) { ... },
           post: function postLink (scope, iElement, iAttrs, controller) { ... }
@@ -581,7 +609,6 @@ angular.module('app.directives', [])
       }
     };
   });
-  
   
 </code>
 </pre>
@@ -737,34 +764,10 @@ angular.module('app.directives', [])
         </section>
         <section>
           <p>This will create a two way mapping between the parent scope and the isolate scope.</p>
-          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/tda-angular-slides/assets/img/scope.png" class="no-style">
+          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/tda-angular-slides/assets/img/scope.png" class="no-style slide-image">
         </section>
         <section>
-          <p>Next, we have function binding or '&'</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        someCalculation: '&'
-      }
-    };
-  });
-  
-</code></pre>
-          <pre><code class="html" data-trim>
-&lt;div my-cool-directive some-calculation="calculateSomeValue()" &gt;&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Triggers evaluation of an expression in the context of the original scope, at a specific time.</p>
-          <p>Any legal expression is allowed, including an expression which contains a function call.</p>
-          <p>Very useful for supplying callbacks to directives.</p>
-        </section>
-        <section>
-          <p>The last type of binding in the attribute value or expression binding '@'.</p>
+          <p>The second type of binding in the attribute value or expression binding '@'.</p>
         </section>
         <section>
           <p>The '@' binding maps the attribute value (string) in the context of the parent scope to the isolate scope.</p>
@@ -789,13 +792,47 @@ angular.module('app.directives', [])
 </pre>
         </section>
         <section>
+          <p>Lastly, we have function binding or '&'</p><br>
+          <pre><code data-trim>
+angular.module('app.directives', [])
+  .directive('myCoolDirective', function() {
+    return {
+      scope: {
+        someCalculation: '&'
+      },
+      link: function (scope, elem, attrs) {
+        // something happens
+        scope.someCalculation({amount: 5});
+      }
+    };
+  });
+  
+</code></pre>
+          <pre><code class="html" data-trim>
+&lt;div my-cool-directive some-calculation="calculateSomeValue(amount)" &gt;&lt;/div&gt;
+
+</code>
+</pre>
+        </section>
+        <section>
           <h3>Transclude</h3>
         </section>
         <section>
-          <p>The transclude option changes the way scopes are nested.</p>
+          <p>To use transclusion with a directive, just add the transclude option to the directive configuration.</p><br>
+          <pre><code data-trim>
+angular.module('app.directives', [])
+  .directive('myFrameDirective', function() {
+    return {
+      transclude: true
+    };
+  });
+  
+</code>
+</pre>
         </section>
         <section>
-          <p>The best way to look at transclusion is as a picture frame.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style">
+          <p>The transclude option changes the way scopes are nested.</p>
+          <p>The best way to look at transclusion is as a picture frame.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style slide-image">
         </section>
         <section>
           <p>First, lets look at using a transclude directive</p><br>
@@ -835,19 +872,9 @@ angular.module('app.directives', [])
 </pre>
         </section>
         <section>
-          <p>To use transclusion with a directive, just add the transclude option to the directive configuration.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myFrameDirective', function() {
-    return {
-      transclude: true
-    };
-  });
-  
-</code>
-</pre>
+          <p>Let's look at the picture frame again.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style slide-image">
         </section>
-        <section><img src="/tda-angular-slides/assets/img/mind-blown.gif" class="no-style"></section>
+        <section><img src="/tda-angular-slides/assets/img/mind-blown.gif" class="no-style slide-image"></section>
         <section>
           <h1>Directive Demo  </h1>
         </section>
@@ -868,7 +895,7 @@ angular.module('app.directives', [])
           </ul>
         </section>
         <section>
-          <h1>Thank You</h1>
+          <h1>Thank You</h1><img src="/tda-angular-slides/assets/img/applause.gif" class="no-style slide-image">
         </section>
         <script>
           angular.module('databinding', [])

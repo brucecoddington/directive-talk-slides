@@ -1,7 +1,7 @@
 {
-  "name": "TDA Angular Slides",
+  "name": "tda-angular-slides",
   "version": "0.0.1",
-  "description": "Slide deck for TDA",
+  "description": "Slide deck for TDA Angular talk",
   "main": "index.js",
   "author": "Bruce Coddington",
   "devDependencies": {

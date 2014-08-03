@@ -13,34 +13,36 @@ include includes/mixins
       li bruce.coddington@objectpartners.com
 
   section
-    h2 Objectives
+    h2 Object Partners, Inc.
     ul
-      li Share our experience building a production application using Angular JS
-      li High level, firehose introduction to Angular's methodologies
-      li I love questions, don't be shy..you cannot derail me
+      li Founded 1996
+      li Java, Groovy, JavaScript, Mobile, Open Source
+      li ~100 Senior Consultants
+        ul
+          li Minneapolis, Omaha
+          li Chicago, Denver
+          li Average Tenure >5 years
 
   section
-    h1 Topics
+    h2 What are we doing?
     ul
-      li Overview
-      li Factories and Providers
-      li Custom Directives
+      li Share experiences building a production application using Angular JS
+      li High level introduction to Angular's methodologies
+      li I love questions, don't be shy
 
   section
     h1 Module System
 
   section
-    p Angular apps don't have a main method. Instead, modules declaratively specify how an application should be bootstrapped.
+    p Angular apps don't have a main method.
+    p Modules declaratively specify how an application should be bootstrapped.
 
   section
-    p There are several advantages to this approach
+    h3 Advantages
     ul
       li The declarative process is easier to understand.
       li You can package code as reusable modules.
       li The modules can be loaded in any order because modules delay execution.
-
-  section
-    p What does a module look like?
 
   section
     p The code below creates a new module named 'app'
@@ -69,6 +71,21 @@ include includes/mixins
       ]);
 
       angular.module('feature1.1', []);
+
+      </code>
+
+  section
+    p Module instantiation has 2 phases: config and run.
+    br
+    pre.
+      <code class="js" data-trim>
+      angular.module('app', [])
+        .config(function (someProvider) {
+          // use provider to set up module
+        })
+        .run(function (aService) {
+          // use service
+        });
 
       </code>
 
@@ -144,9 +161,10 @@ include includes/mixins
 
   section
     h3 Link
-    p Combine the directives with a scope and produce a live view. 
-    p Any changes in the scope model are reflected in the view.
-    p User interactions with the view are reflected in the scope model.
+    p Combine the directives with a scope and create a live view.
+    ul
+      li Any changes in the scope model are reflected in the view.
+      li User interactions with the view are reflected in the scope model.
 
   section
     h2 Scope
@@ -157,9 +175,14 @@ include includes/mixins
     p Arranged in hierarchical structure which mimic the DOM structure of the application.
 
   section
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/nested-scope.png")
+
+  section
     h3 Communicating with the outside world
-    p <strong>$apply</strong> : Gets you from the outside into the Ng world.
-    p <strong>$parse</strong> : Gets you two-way binding.
+    ul
+      li $scope.$apply : Connect the outside into the Ng world.
+      li $scope.$parse : Gets you two-way binding.
+      li $scope.$watch : Helps you react to changes. 
 
   section
     p Let's see the HTML compiler in action
@@ -310,6 +333,9 @@ include includes/mixins
 
   section(id="example2", ng-controller="TimeController")
     h2(style="font-family: monospace;") {{time}}
+
+  section
+    img.no-style.slide-image(src='/tda-angular-slides/assets/img/suprised.gif')
 
   section
     h1 Bootstrapping
@@ -463,11 +489,14 @@ include includes/mixins
       | that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
 
   section
-    img.no-style(src="/tda-angular-slides/assets/img/wat_grande.jpg")
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/wat_grande.jpg")
 
   section
     p Angular is the meta-framework to create a new vocabulary(dsl) for the browser. 
     p Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.
+  
+  section
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/highfive.gif")
 
   section
     p $compile can match directives based on element names,
@@ -555,6 +584,8 @@ include includes/mixins
         .directive('myCoolDirective', function() {
           return {
             compile : function (tElement, tAttrs, transclude) {
+              tElement.addClass('hipster');
+
               return {
                 pre: function preLink (scope, iElement, iAttrs, controller) { ... },
                 post: function postLink (scope, iElement, iAttrs, controller) { ... }
@@ -563,7 +594,6 @@ include includes/mixins
           };
         });
       
-
       </code>
 
   section
@@ -722,36 +752,10 @@ include includes/mixins
   section
     p This will create a two way mapping between the parent scope and the isolate scope.
     p Changes made in the parent scope are reflected in the isolate scope and visa versa.
-    img.no-style(src="/tda-angular-slides/assets/img/scope.png")
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/scope.png")
 
   section
-    p Next, we have function binding or '&'
-    br
-    pre.
-      <code data-trim>
-      angular.module('app.directives', [])
-        .directive('myCoolDirective', function() {
-          return {
-            scope: {
-              someCalculation: '&'
-            }
-          };
-        });
-
-      </code>
-    pre.
-      <code class="html" data-trim>
-      &lt;div my-cool-directive some-calculation="calculateSomeValue()" &gt;&lt;/div&gt;
-
-      </code>
-
-  section
-    p Triggers evaluation of an expression in the context of the original scope, at a specific time.
-    p Any legal expression is allowed, including an expression which contains a function call.
-    p Very useful for supplying callbacks to directives.
-
-  section
-    p The last type of binding in the attribute value or expression binding '@'.
+    p The second type of binding in the attribute value or expression binding '@'.
 
   section
     p
@@ -779,14 +783,51 @@ include includes/mixins
       </code>
 
   section
+    p Lastly, we have function binding or '&'
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myCoolDirective', function() {
+          return {
+            scope: {
+              someCalculation: '&'
+            },
+            link: function (scope, elem, attrs) {
+              // something happens
+              scope.someCalculation({amount: 5});
+            }
+          };
+        });
+
+      </code>
+    pre.
+      <code class="html" data-trim>
+      &lt;div my-cool-directive some-calculation="calculateSomeValue(amount)" &gt;&lt;/div&gt;
+
+      </code>
+
+  section
     h3 Transclude
 
   section
-    p The transclude option changes the way scopes are nested.
+    p To use transclusion with a directive, just add the transclude option to the directive configuration.
+    br
+    pre.
+      <code data-trim>
+      angular.module('app.directives', [])
+        .directive('myFrameDirective', function() {
+          return {
+            transclude: true
+          };
+        });
+
+      </code>
 
   section
+    p The transclude option changes the way scopes are nested.
     p The best way to look at transclusion is as a picture frame.
-    img.no-style(src="/tda-angular-slides/assets/img/transclude-frame.png")
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/transclude-frame.png")
 
   section
     p First, lets look at using a transclude directive
@@ -830,21 +871,11 @@ include includes/mixins
       </code>
 
   section
-    p To use transclusion with a directive, just add the transclude option to the directive configuration.
-    br
-    pre.
-      <code data-trim>
-      angular.module('app.directives', [])
-        .directive('myFrameDirective', function() {
-          return {
-            transclude: true
-          };
-        });
-
-      </code>
+    p Let's look at the picture frame again.
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/transclude-frame.png")
 
   section
-    img.no-style(src="/tda-angular-slides/assets/img/mind-blown.gif")
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/mind-blown.gif")
 
   section
     h1 Directive Demo  
@@ -866,6 +897,7 @@ include includes/mixins
 
   section
     h1 Thank You
+    img.no-style.slide-image(src="/tda-angular-slides/assets/img/applause.gif")
 
   script.
     angular.module('databinding', [])
