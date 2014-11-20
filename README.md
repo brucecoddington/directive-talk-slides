@@ -33,4 +33,4 @@ slides using GitHub pages [here](http://objectpartners.github.io/angular-slides)
 `grunt publish`
   * Publishes slides to GitHub pages
   * Uses git subtree merge to merge the contents of dist into the gh-pages branch
-  * Slides available [here](http://brucecoddington.github.io/tda-angular-slides)
+  * Slides available [here](http://brucecoddington.github.io/directive-talk-slides)

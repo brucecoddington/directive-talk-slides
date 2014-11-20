@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  
+
   var connect = require('connect'),
     redirect = require('connect-redirection');
 
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
     concat:{
       dist : {
         src : [
-          
+
           // Reveal.js
           'src/assets/js/headjs/dist/head.js',
           'src/assets/js/reveal.js/js/reveal.js',
@@ -156,7 +156,7 @@ module.exports = function(grunt) {
         tasks: ['assemble']
       }
     },
-    
+
     shell : {
       publish : {
         options: {
@@ -179,13 +179,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-shell');
-  
+
   grunt.registerTask('connect', 'Start a custom static web server.', function() {
     grunt.log.writeln('Starting static web server in "dist" on port 8001.');
-    
+
     connect()
       .use(redirect())
-      .use('/tda-angular-slides', connect.static('dist'))
+      .use('/directive-talk-slides', connect.static('dist'))
       .listen(8001);
   });
 
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
   grunt.registerTask('assemble', ['clean:pre', 'less', 'cssmin', 'concat', 'uglify', 'jade', 'copy', 'clean:post']);
   grunt.registerTask('run', ['connect', 'watch']);
   grunt.registerTask('publish', ['assemble', 'shell:publish']);
-  
+
 
 
 };
