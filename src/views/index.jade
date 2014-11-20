@@ -121,6 +121,9 @@ include includes/mixins
       | then map the outer scope to a directive's inner scope.
 
   section
+    img.no-style.slide-image(src="/directive-talk-slides/assets/img/nested-scope.png")
+
+  section
     p The directive below will have an isolate scope that is not mapped to anything in the parent scope (completely isolated)
     br
     pre.
@@ -183,6 +186,8 @@ include includes/mixins
       <code class="html" data-trim>
       &lt;div bc-bojack-horseman attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
 
+      &lt;div bc-bojack-horseman attribute-value="11" &gt;&lt;/div&gt;
+
       </code>
 
   section
@@ -242,6 +247,9 @@ include includes/mixins
       &lt;div bc-bojack-horseman some-calculation="calculateSomeValue(amount)" &gt;&lt;/div&gt;
 
       </code>
+
+  section
+    h1 DEMO
 
   section
     img.no-style.slide-image(src="/directive-talk-slides/assets/img/mind-blown.gif")

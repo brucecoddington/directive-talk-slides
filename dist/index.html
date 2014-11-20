@@ -140,6 +140,7 @@ function bcBojackHorseman() {
             then map the outer scope to a directive's inner scope.
           </p>
         </section>
+        <section><img src="/directive-talk-slides/assets/img/nested-scope.png" class="no-style slide-image"></section>
         <section>
           <p>The directive below will have an isolate scope that is not mapped to anything in the parent scope (completely isolated)</p><br>
           <pre><code data-trim>
@@ -197,6 +198,8 @@ function bcBojackHorseman() {
           <pre><code class="html" data-trim>
 &lt;div bc-bojack-horseman attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
 
+&lt;div bc-bojack-horseman attribute-value="11" &gt;&lt;/div&gt;
+
 </code>
 </pre>
         </section>
@@ -252,6 +255,9 @@ function bcBojackHorseman() {
 
 </code>
 </pre>
+        </section>
+        <section>
+          <h1>DEMO</h1>
         </section>
         <section><img src="/directive-talk-slides/assets/img/mind-blown.gif" class="no-style slide-image"></section>
         <section>
