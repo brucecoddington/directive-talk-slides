@@ -2,46 +2,30 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>TDA JS Summit</title>
+    <title>@&amp;=?</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="TDA JS Summit">
-    <link href="/tda-angular-slides/assets/css/style.css" rel="stylesheet" type="text/css">
-    <script src="/tda-angular-slides/assets/js/angular.js"></script>
-    <script type="text/javascript">
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/tda-angular-slides/assets/css/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-      }
-      
-    </script>
+    <meta name="description" content="@&amp;=?">
+    <link href="/directive-talk-slides/assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/directive-talk-slides/assets/js/angular.js"></script>
   </head>
   <body>
     <div class="reveal">
       <div class="opi-logo"></div>
-      <div class="tda-logo"></div>
       <div class="slides">
-        <section data-state="index-slide" class="index-section">
-          <div class="sliding-image-container"><img src="/tda-angular-slides/assets/img/angular.png" class="animate-logos angular"><img src="/tda-angular-slides/assets/img/grunt-logo.png" class="animate-logos grunt"><img src="/tda-angular-slides/assets/img/yeoman-logo.png" class="animate-logos yeoman"><img src="/tda-angular-slides/assets/img/node-logo.png" class="animate-logos node"><img src="/tda-angular-slides/assets/img/bower-logo.png" class="animate-logos bower"></div>
+        <section class="index-section">
+          <div class="sliding-image-container"><img src="/directive-talk-slides/assets/img/angular.png" class="angular"></div>
           <div class="fading-header-container">
-            <h1 class="animate-headers angular">Angular.js</h1>
-            <h1 class="animate-headers grunt">Grunt.js</h1>
-            <h1 class="animate-headers yeoman">Yeoman</h1>
-            <h1 class="animate-headers node">Node.js</h1>
-            <h1 class="animate-headers bower">Bower.js</h1>
+            <h1 class="angular">Angular.js</h1>
           </div>
-          <h3>TD Amertrade JS Summit</h3>
-          <h4>Angular JS</h4>
+          <h3>@&amp;=?</h3>
+          <h4>Communicating with Angular Directives</h4>
         </section>
         <section>
           <h2>whoami?</h2>
           <ul>
             <li>Bruce Coddington<a href="https://twitter.com/brucecoddington" target="_blank">(@brucecoddington)</a></li>
-            <li>bruce.coddington@tdameritrade.com</li>
             <li>bruce.coddington@objectpartners.com</li>
           </ul>
         </section>
@@ -62,446 +46,9 @@
         <section>
           <h2>What are we doing?</h2>
           <ul>
-            <li>Share experiences building a production application using Angular JS</li>
-            <li>High level introduction to Angular's methodologies</li>
+            <li>Examine how to have custom directives communicate with the outside world.</li>
             <li>I love questions, don't be shy</li>
           </ul>
-        </section>
-        <section>
-          <h1>Module System</h1>
-        </section>
-        <section>
-          <p>Angular apps don't have a main method.</p>
-          <p>Modules declaratively specify how an application should be bootstrapped.</p>
-        </section>
-        <section>
-          <h3>Advantages</h3>
-          <ul>
-            <li>The declarative process is easier to understand.</li>
-            <li>You can package code as reusable modules.</li>
-            <li>The modules can be loaded in any order because modules delay execution.</li>
-          </ul>
-        </section>
-        <section>
-          <p>The code below creates a new module named 'app'</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', []);
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Modules can list other modules as their dependencies.</p>
-          <p>Each module will only be loaded once, even if multiple other modules require it.</p>
-        </section>
-        <section>
-          <p>Below is an example of how to specify a module dependency.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', [
-  'feature1'
-]);
-
-angular.module('feature1', [
-  'feature1.1'
-]);
-
-angular.module('feature1.1', []);
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Module instantiation has 2 phases: config and run.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', [])
-  .config(function (someProvider) {
-    // use provider to set up module
-  })
-  .run(function (aService) {
-    // use service
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h1>Dependency</h1>
-          <h1>Injection</h1>
-        </section>
-        <section>
-          <p>
-            The Angular injector subsystem is in charge of service instantiation, resolution of dependencies, and
-            provision of dependencies to components as requested.
-          </p>
-        </section>
-        <section>
-          <p>The example below shows how to specify that $scope and myService need to be injected into the function.</p><br>
-          <pre><code class="js" data-trim>
-  function AwesomeFn($scope, myService) {
-  
-  }
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Angular also has an array syntax for specifying dependencies, similar to AMD.</p><br>
-          <pre><code class="js" data-trim>
-  [
-    '$scope',
-    'myService',
-    function AwesomeFn($scope, myService) {
-    
-    }
-  ]
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h1>HTML Compiler</h1>
-        </section>
-        <section>
-          <p>Angular's HTML compiler allows the developer to teach the browser new HTML syntax.</p>
-        </section>
-        <section>
-          <p>
-            It allows you to attach behavior to any HTML element or attribute and even create new HTML
-            elements or attributes with custom behavior.
-          </p>
-        </section>
-        <section>
-          <p>Angular calls these behavior extensions<strong> directives.</strong></p>
-        </section>
-        <section>
-          <p>So what does a directive look like?</p><br>
-          <div class="text-center">
-            <pre><code class="html" data-trim>
-&lt;div ng-bind="exp"&gt;&lt;/div&gt;
-
-</code>
-</pre>
-          </div>
-        </section>
-        <section>
-          <p>The compiler($compile) is an Angular service that traverses the DOM looking for directives.</p>
-        </section>
-        <section>
-          <p>The compilation process happens in two phases.</p>
-        </section>
-        <section>
-          <h3>Compile</h3>
-          <p>Traverse the DOM and collect all of the directives.</p>
-        </section>
-        <section>
-          <h3>Link</h3>
-          <p>Combine the directives with a scope and create a live view.</p>
-          <ul>
-            <li>Any changes in the scope model are reflected in the view.</li>
-            <li>User interactions with the view are reflected in the scope model.</li>
-          </ul>
-        </section>
-        <section>
-          <h2>Scope</h2>
-        </section>
-        <section>
-          <p>Scope is an object that refers to the application model.  </p>
-          <p>Execution context for expressions.</p>
-          <p>Arranged in hierarchical structure which mimic the DOM structure of the application.</p>
-        </section>
-        <section><img src="/tda-angular-slides/assets/img/nested-scope.png" class="no-style slide-image"></section>
-        <section>
-          <h3>Communicating with the outside world</h3>
-          <ul>
-            <li>$scope.$apply : Connect the outside into the Ng world.</li>
-            <li>$scope.$parse : Gets you two-way binding.</li>
-            <li>$scope.$watch : Helps you react to changes. </li>
-          </ul>
-        </section>
-        <section>
-          <p>Let's see the HTML compiler in action</p>
-        </section>
-        <section>
-          <p>ng-init evaluates a JavaScript expression on scope.</p>
-          <p>ng-bind takes a variable on scope and sets the content of the element to it.</p><br>
-          <pre><code class="html" data-trim>
-&lt;div ng-init="myVar = 1 + 2;"&gt;
-  &lt;p ng-bind="myVar"&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-          <p>What will the DOM look like after compilation and linking?</p>
-        </section>
-        <section>
-          <pre><code class="html" data-trim>
-&lt;div ng-init="myVar = 1 + 2;"&gt;
-  &lt;p ng-bind="myVar"&gt;3&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Instead of using ng-bind, we can use the shorthand {{ }}</p>
-        </section>
-        <section>
-          <p>The linker will execute the expression inside {{ }} on scope and replace it with the result.</p>
-        </section>
-        <section>
-          <pre><code class="html" data-trim>
-&lt;div ng-init="myVar = 1 + 2;"&gt;
-  &lt;p&gt;{{myVar}}{{myVar + 1}}&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-          <p>What will the DOM look like after compilation and linking?</p>
-        </section>
-        <section>
-          <pre><code class="html" data-trim>
-&lt;div ng-init="myVar = 1 + 2;"&gt;
-  &lt;p&gt;34&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <h1>Controllers</h1>
-        </section>
-        <section>
-          <p>In Angular, a controller is a JavaScript constructor function that is used to augment the Angular Scope.</p>
-        </section>
-        <section>
-          <p>You create controllers on a module.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app.controllers', [])
-  .controller('AppController',
-    function() {
-    
-    }
-  );
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <p>When creating a controller you can inject the new scope as well as other dependencies.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app.controllers', [])
-  .controller('AppController',
-    function($scope, $interval) {
-    
-    }
-  );
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <p>You can associate controllers with scope objects implicitly via the ngController directive.</p>
-        </section>
-        <section>
-          <p>Controller</p>
-          <pre><code class="js" data-trim>
-angular.module('app.controllers', [])
-  .controller('AppController',
-    function($scope) {
-      $scope.time = new Date();
-    }
-  );
-  
-</code>
-</pre>
-          <p>Template</p>
-          <pre><code class="html" data-trim>
-&lt;div ng-controller="AppController" &gt;
-  &lt;p&gt;{{time}}&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section id="example1" ng-controller="AppController">
-          <p>Final result</p>
-          <pre><code class="html" data-trim>
-&lt;div ng-controller="AppController" &gt;
-  &lt;p&gt;{{time}}&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Lets add some functionality to scope and show off data binding.</p>
-        </section>
-        <section>
-          <p>The $interval service executes a function on scope in the supplied interval.</p>
-          <pre><code class="js" data-trim>
-angular.module('app.controllers', [])
-  .controller('TimeController',
-    function($scope, $interval) {
-      // Set the value of $scope.time to 'now' every 10 ms
-      $interval(function() {
-        $scope.time = new Date();
-      }, 10);
-    }
-  );
-  
-</code></pre>
-          <pre><code class="html" data-trim>
-&lt;div ng-controller="TimeController"&gt;
-  &lt;p&gt;{{time}}&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section id="example2" ng-controller="TimeController">
-          <h2 style="font-family: monospace;">{{time}}</h2>
-        </section>
-        <section><img src="/tda-angular-slides/assets/img/suprised.gif" class="no-style slide-image"></section>
-        <section>
-          <h1>Bootstrapping</h1>
-        </section>
-        <section>
-          <p>
-            Angular initializes automatically upon DOMContentLoaded event or when the angular.js script is evaluated if at that
-            time document.readyState is set to 'complete'.
-          </p>
-        </section>
-        <section>
-          <p>At this point Angular looks for the ng-app directive which designates your application root.</p>
-        </section>
-        <section>
-          <p>Typically the ng-app directive is used on the root html or body elements so that the entire document is traversed and linked by the compiler.</p><br>
-          <pre><code class="html" data-trim>
-&lt;html ng-app="app"&gt;
-
-&lt;/html&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <h2>App Boostrap Demo</h2>
-        </section>
-        <section>
-          <h1>Providers</h1>
-        </section>
-        <section>
-          <p>The AngularJS injector creates two types of objects:</p>
-          <ul>
-            <li>Specialized Objects</li>
-            <li>Services</li>
-          </ul>
-        </section>
-        <section>
-          <h3>Specialized Objects</h3>
-          <p>Conform to a specific Angular framework API.</p>
-          <p>Controllers, directives, filters or animations.</p>
-        </section>
-        <section>
-          <h3>Services</h3>
-          <p>Objects whose API is defined by the developer (you).</p>
-          <p>5 Recipe Types</p>
-        </section>
-        <section>
-          <h2>Value Recipe</h2>
-        </section>
-        <section>
-          <p>Key,Value Pair</p>
-          <p>Often used for specifying configuration during runtime.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', [])
-  .value('apiUrl', '/api')
-  .controller('MyCtrl', function(apiUrl) {
-    // Do something with the apiUrl
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h2>Constant Recipe</h2>
-        </section>
-        <section>
-          <p>Available during configuration phase.</p>
-          <pre><code class="js" data-trim>
-angular.module('app')
-  .constant('apiUrl', '/api');
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h2>Providers</h2>
-          <p>Core of the Angular services</p>
-          <p>Used by the injector </p>
-        </section>
-        <section>
-          <p>Let's look at an example:</p>
-          <pre><code class="js" data-trim>
-.provider('authorization', {
-
-  $get: function ($injector, authentication, securityContext) {
-    return {
-      requireAuthenticatedUser: function () {
-        // implementation for requiring an authenticated user.
-      }
-    };
-  }
-});
-
-</code>
-</pre>
-        </section>
-        <section>
-          <h2>Factory Recipe</h2>
-        </section>
-        <section>
-          <p>We can use the Factory recipe to provide utility functions that have other dependencies.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', [])
-  .factory('authentication', function(myDependency) {
-    var authentication = {
-      login : function(username, password) {
-        // Perform login functionality with myDependency
-      },
-      logout : function(username, password) {
-        // Perform logout functionality with myDependency
-      },
-    };
-    return authentication;
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h2>Service Recipe</h2>
-        </section>
-        <section>
-          <p>Using the service recipe, we just provide the constructor function.</p><br>
-          <pre><code class="js" data-trim>
-angular.module('app', [])
-  .service('authentication', function(myDependency) {
-    this.loginAttempts = 0;
-    
-    this.login = function(username, password) {
-      this.loginAttempts++;
-      // Perform login functionality with myDependency
-    };
-    
-    this.logout = function(username, password) {
-      this.loginAttempts = 0;
-      // Perform logout functionality with myDependency
-    };
-  });
-  
-</code>
-</pre>
         </section>
         <section>
           <h1>Directives</h1>
@@ -512,38 +59,38 @@ angular.module('app', [])
             that tell AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element.
           </p>
         </section>
-        <section><img src="/tda-angular-slides/assets/img/wat_grande.jpg" class="no-style slide-image"></section>
+        <section><img src="/directive-talk-slides/assets/img/wat_grande.jpg" class="no-style slide-image"></section>
         <section>
-          <p>Angular is the meta-framework to create a new vocabulary(dsl) for the browser. </p>
+          <p>Angular is the meta-framework to create a new vocabulary(dsl) for the browser.</p>
           <p>Directives are the glue between <strong>DOM</strong> and <strong>Scope</strong>.</p>
         </section>
-        <section><img src="/tda-angular-slides/assets/img/highfive.gif" class="no-style slide-image"></section>
+        <section><img src="/directive-talk-slides/assets/img/highfive.gif" class="no-style slide-image"></section>
         <section>
           <p>$compile can match directives based on element names,</p>
           <div class="text-center">
             <pre><code class="html" data-trim>
-&lt;my-cool-directive&gt; &lt;/my-cool-directive&gt;
+&lt;bc-bojack-horseman&gt; &lt;/bc-bojack-horseman&gt;
 
 </code></pre>
           </div>
           <p>attributes,</p>
           <div class="text-center">
             <pre><code class="html" data-trim>
-&lt;div my-cool-directive&gt; &lt;/div&gt;
+&lt;div bc-bojack-horseman&gt; &lt;/div&gt;
 
 </code></pre>
           </div>
           <p>class names,</p>
           <div class="text-center">
             <pre><code class="html" data-trim>
-&lt;div class="my-cool-directive"&gt; &lt;/div&gt;
+&lt;div class="bc-bojack-horseman"&gt; &lt;/div&gt;
 
 </code></pre>
           </div>
           <p>and html comments.</p>
           <div class="text-center">
             <pre><code class="html" data-trim>
-&lt;!-- directive: my-cool-directive --&gt;
+&lt;!-- directive: bc-bojack-horseman --&gt;
 
 </code>
 </pre>
@@ -553,150 +100,32 @@ angular.module('app', [])
           <p>Below is an example of declaring a directive and referring to it in HTML.</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
-  .directive('myCoolDirective', [
-    //...
-  ]);
+  .directive('bcBojackHorseman', bcBojackHorseman);
   
+function bcBojackHorseman() {
+  return {
+    //directive configuration
+  };
+}
+
 </code></pre>
           <pre><code class="html" data-trim>
-&lt;div my-cool-directive&gt;&lt;/div&gt;
+&lt;div bc-bojack-horseman&gt;&lt;/div&gt;
 
 </code>
 </pre>
         </section>
         <section>
-          <h2>Directive Configuration</h2>
-        </section>
-        <section>
-          <h3>Template</h3>
-        </section>
-        <section>
-          <p>You can add inline templates for very small templates or provide a url for larger templates.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      template: '&lt;div&gt;{{helloWorld}}&lt;/div&gt;'
-      
-      or
-      
-      templateUrl: 'templates/directives/my-cool-directive.html'
-    };
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h3>Compile</h3>
-        </section>
-        <section>
-          <p>If you need modify the directive's template, use the compile function. </p>
-        </section>
-        <section>
-          <p>The compile function </p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      compile : function (tElement, tAttrs, transclude) {
-        tElement.addClass('hipster');
-        
-        return {
-          pre: function preLink (scope, iElement, iAttrs, controller) { ... },
-          post: function postLink (scope, iElement, iAttrs, controller) { ... }
-        }
-      }
-    };
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h3>Linking</h3>
-        </section>
-        <section>
-          <p>Directives that want to modify the element or scope typically use the link option.</p>
-        </section>
-        <section>
-          <p>Inside the link function, you can initialize scope, watch properties, modify element attributes, and etc.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        myVar: '='
-      },
-      link: function postLink (scope, element, attrs) {
-        scope.updatedCount = 0;
-        scope.$watch('myVar', function() {
-          scope.updatedCount += 1;
-          var contents = 'myVar updated ' +
-            scope.updatedCount + ' times.';
-          element.text(contents);
-        });
-      }
-    };
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <p>When do I use compile vs. linking?</p>
+          <h3>Directive Configuration</h3>
           <ul>
-            <li>Compile is used to modify the directive's <strong>template</strong>.</li>
-            <li>Link has access to <strong>Scope</strong>.</li>
+            <li>Template or TemplateUrl</li>
+            <li>Restrict (EACM)</li>
+            <li>Transclude</li>
+            <li>Replace</li>
+            <li>Compile or Linking function</li>
+            <li>Controller</li>
+            <li>Scope</li>
           </ul>
-        </section>
-        <section>
-          <h3>Restrict</h3>
-        </section>
-        <section>
-          <p>
-            When you create a directive, it is restricted to attribute only by default. In order to create
-            directives that are triggered by element or class name, you need to use the restrict option.
-          </p>
-          <ul>
-            <li><strong>A</strong> - Matches attribute name.</li>
-            <li><strong>E</strong> - Matches element name.</li>
-            <li><strong>C</strong> - Matches class name.</li>
-            <li>
-              <strong>M</strong> - Matches HTML comment.
-              
-            </li>
-          </ul>
-        </section>
-        <section>
-          <p>The directive below would match elements, attributes, CSS class names, or HTML comments.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      restrict: 'AECM'
-    };
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <h3>Replace</h3>
-        </section>
-        <section>
-          <p>When replace is true, the template will replace the element the directive is specified on.</p>
-          <p>When replace is false, the template will be placed inside the element the directive is specified on.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      replace: true
-    };
-  });
-  
-</code>
-</pre>
         </section>
         <section>
           <h3>Scope</h3>
@@ -715,12 +144,14 @@ angular.module('app.directives', [])
           <p>The directive below will have an isolate scope that is not mapped to anything in the parent scope (completely isolated)</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: true
-    };
-  });
+  .directive('bcBojackHorseman', bcBojackHorseman);
   
+function bcBojackHorseman() {
+  return {
+    scope: true
+  };
+}
+
 </code>
 </pre>
         </section>
@@ -728,199 +159,114 @@ angular.module('app.directives', [])
           <p>When we want to map the outer scope to the directives inner scope, we use a scope configuration object.</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
-  .directive('myCoolDirective',function() {
-    return {
-      scope: {
-        // ...
-      }
-    };
-  });
+  .directive('bcBojackHorseman', bcBojackHorseman);
   
+function bcBojackHorseman() {
+  return {
+    scope: {
+      // ...
+    }
+  };
+}
+
 </code>
 </pre>
         </section>
         <section>
           <p>There are multiple ways to map parent scope to the isolate scope.</p>
-          <p>Lets start with the most common, '=' or two way binding.</p>
+          <p>Lets start with the most common, attribute value or expression binding '@'.</p>
+        </section>
+        <section>
+          <p></p>The '@' binding maps the attribute value (string) in the context of the parent scope to the isolate scope.
+        </section>
+        <section>
+          <p>If scope.value was 5, the value of attributeValue in the isolate scope would be "11" (string).</p><br>
+          <pre><code data-trim>
+angular.module('app.directives', [])
+  .directive('bcBojackHorseman', bcBojackHorseman);
+  
+function bcBojackHorseman() {
+  return {
+    scope: {
+      attributeValue: '@'
+    }
+  };
+}
+
+</code></pre>
+          <pre><code class="html" data-trim>
+&lt;div bc-bojack-horseman attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
+
+</code>
+</pre>
+        </section>
+        <section>
+          <p>The second type of binding is the '=' or two way binding.</p>
         </section>
         <section>
           <p>This will instruct Angular to bind the value supplied with the element attribute "some-attribute" to the isolate scope.</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        someAttribute: '='
-      }
-    };
-  });
+  .directive('bcBojackHorseman', bcBojackHorseman);
   
+function bcBojackHorseman() {
+  return {
+    scope: {
+      someAttribute: '='
+    }
+  };
+}
+
 </code></pre>
           <pre><code class="html" data-trim>
-&lt;div my-cool-directive some-attribute="myAttribute"&gt;&lt;/div&gt;
+&lt;div bc-bojack-horseman some-attribute="myAttribute"&gt;&lt;/div&gt;
 
 </code>
 </pre>
         </section>
         <section>
           <p>This will create a two way mapping between the parent scope and the isolate scope.</p>
-          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/tda-angular-slides/assets/img/scope.png" class="no-style slide-image">
-        </section>
-        <section>
-          <p>The second type of binding in the attribute value or expression binding '@'.</p>
-        </section>
-        <section>
-          <p>The '@' binding maps the attribute value (string) in the context of the parent scope to the isolate scope.</p>
-        </section>
-        <section>
-          <p>If scope.value was 5, the value of attributeValue in the isolate scope would be "11" (string).</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myCoolDirective',function() {
-    return {
-      scope: {
-        attributeValue: '@'
-      }
-    };
-  });
-  
-</code></pre>
-          <pre><code class="html" data-trim>
-&lt;div my-cool-directive attribute-value="{{ scope.value + 6 }}" &gt;&lt;/div&gt;
-
-</code>
-</pre>
+          <p>Changes made in the parent scope are reflected in the isolate scope and visa versa.</p><img src="/directive-talk-slides/assets/img/scope.png" class="no-style slide-image">
         </section>
         <section>
           <p>Lastly, we have function binding or '&'</p><br>
           <pre><code data-trim>
 angular.module('app.directives', [])
-  .directive('myCoolDirective', function() {
-    return {
-      scope: {
-        someCalculation: '&'
-      },
-      link: function (scope, elem, attrs) {
-        // something happens
-        scope.someCalculation({amount: 5});
-      }
-    };
-  });
+  .directive('bcBojackHorseman', bcBojackHorseman);
   
-</code></pre>
-          <pre><code class="html" data-trim>
-&lt;div my-cool-directive some-calculation="calculateSomeValue(amount)" &gt;&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <h3>Transclude</h3>
-        </section>
-        <section>
-          <p>To use transclusion with a directive, just add the transclude option to the directive configuration.</p><br>
-          <pre><code data-trim>
-angular.module('app.directives', [])
-  .directive('myFrameDirective', function() {
-    return {
-      transclude: true
-    };
-  });
-  
-</code>
-</pre>
-        </section>
-        <section>
-          <p>The transclude option changes the way scopes are nested.</p>
-          <p>The best way to look at transclusion is as a picture frame.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style slide-image">
-        </section>
-        <section>
-          <p>First, lets look at using a transclude directive</p><br>
-          <pre><code class="html" data-trim>
-&lt;div my-frame-directive &gt;
-  &lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
-&lt;/div&gt;
-
-</code>
-</pre>
-        </section>
-        <section>
-          <p>Now, lets look at the template for a transclusion directive</p><br>
-          <pre><code class="html" data-trim>
-&lt;div class="{{isolateScopeVariable}}"&gt;
-  &lt;div ng-transclude &gt;&lt;/div&gt;
-&lt;/div&gt;
+function bcBojackHorseman() {
+  return {
+    scope: {
+      someCalculation: '&'
+    },
+    link: function (scope, elem, attrs) {
+      // something happens
+      scope.someCalculation({amount: 5});
+    }
+  };
+}
 
 </code></pre>
-          <p>Angular will place the contents of the directive</p>
-          <div class="text-center">
-            <pre><code class="html" data-trim>
-&lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
-
-</code></pre>
-          </div>
-          <p>in the place of the element with the ng-transclude attribute</p>
-        </section>
-        <section>
-          <p>After compilation, the final DOM will look like</p><br>
           <pre><code class="html" data-trim>
-&lt;div class="{{isolateScopeVariable}}"&gt;
-  &lt;p&gt;{{outerScopeVariable}}&lt;/p&gt;
-&lt;/div&gt;
+&lt;div bc-bojack-horseman some-calculation="calculateSomeValue(amount)" &gt;&lt;/div&gt;
 
 </code>
 </pre>
         </section>
+        <section><img src="/directive-talk-slides/assets/img/mind-blown.gif" class="no-style slide-image"></section>
         <section>
-          <p>Let's look at the picture frame again.</p><img src="/tda-angular-slides/assets/img/transclude-frame.png" class="no-style slide-image">
-        </section>
-        <section><img src="/tda-angular-slides/assets/img/mind-blown.gif" class="no-style slide-image"></section>
-        <section>
-          <h1>Directive Demo  </h1>
-        </section>
-        <section>
-          <h3>What we didn't cover</h3>
-        </section>
-        <section>
+          <h3>So when do I use what?</h3>
           <ul>
-            <li>karma/protractor/mocking</li>
-            <li>$http/$resource/restangular</li>
-            <li>$route/$location/$state</li>
-            <li>form directives</li>
-            <li>animation</li>
-            <li>filters/interceptors</li>
-            <li>Angular UI Libraries and community.</li>
-            <li>ng-annotate/ng-min</li>
-            <li>so much more...</li>
+            <li>@ : for typical string values and one-way binding</li>
+            <li>= : for when you need two-way binding</li>
+            <li>& : for when you need a function called in the parent scope's context</li>
           </ul>
         </section>
         <section>
-          <h1>Thank You</h1><img src="/tda-angular-slides/assets/img/applause.gif" class="no-style slide-image">
+          <h1>Thank You</h1><img src="/directive-talk-slides/assets/img/applause.gif" class="no-style slide-image">
         </section>
-        <script>
-          angular.module('databinding', [])
-            .controller('AppController', [
-              '$scope',
-              function($scope) {
-                $scope.time = new Date();
-              }
-            ])
-            .controller('TimeController', [
-              '$scope',
-              '$interval',
-              function($scope, $interval) {
-                $interval(function() {
-                  $scope.time = new Date();
-                }, 10);
-              }
-            ]);
-            
-          angular.bootstrap(document.getElementById("example1"), ['databinding']);
-          angular.bootstrap(document.getElementById("example2"), ['databinding']);
-          
-        </script>
       </div>
     </div>
-    <script src="/tda-angular-slides/assets/js/app.js"></script>
+    <script src="/directive-talk-slides/assets/js/app.js"></script>
   </body>
 </html>
